@@ -17,11 +17,6 @@ func enter(msgs: Dictionary = {}) -> void:
 			velocity   = v
 			velocity.y = max_jump_velocity
 		
-		# Entered from wall jump
-		{'velocity': var v, 'wall_jump_away_height': var wjah}:
-			velocity = v
-			velocity.y = wjah
-		
 		# Entered from a fall
 		{'velocity': var v}:
 			velocity = v
@@ -44,9 +39,9 @@ func handle_move(delta: float) -> void:
 	if cb.is_on_ceiling() == true:
 		velocity.y = 0
 	
-	# Check for wallsliding
-	if cb.is_on_wall() == true and velocity.y < 0 and Input.is_action_pressed("move_forward"):
-		my_state_machine.change_to_state("PLWallSlide")
+	# Check for ledge grabs
+	if can_ledge_grab() == true:
+		my_state_machine.change_to_state("PLLedgeGrab")
 		return
 	
 	if cb.is_on_floor() == true:
@@ -80,3 +75,17 @@ func apply_movement(delta: float) -> void:
 func apply_friction(delta: float) -> void:
 	if input_dir == Vector3.ZERO:
 		velocity = velocity.move_toward(Vector3.ZERO, air_friction * delta)
+
+func can_ledge_grab() -> bool:
+	# Only ledge grab when the player is falling
+	if cb.is_on_floor() == false and velocity.y < 0.0:
+		var vertical_ledge_cast: RayCast3D = my_state_machine.vertical_ledge_cast
+		var horizontal_ledge_cast: RayCast3D = my_state_machine.horizontal_ledge_cast
+		if vertical_ledge_cast.is_colliding() == true:
+			var vert_collision_point = vertical_ledge_cast.get_collision_point()
+			horizontal_ledge_cast.global_transform.origin.y = vert_collision_point.y - 0.01
+			
+			# Ledge grab if all the checks are clear
+			if horizontal_ledge_cast.is_colliding() == true:
+				return true
+	return false

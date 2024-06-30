@@ -24,9 +24,11 @@ mesh = SubResource("CapsuleMesh_ykb2l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.605518, -0.505707)
 size = Vector3(0.5, 0.3, 0.5)
 
-[node name="PlayerLocomotionController" type="Node" parent="." node_paths=PackedStringArray("camera_controller")]
+[node name="PlayerLocomotionController" type="Node" parent="." node_paths=PackedStringArray("camera_controller", "vertical_ledge_cast", "horizontal_ledge_cast")]
 script = ExtResource("1_b657k")
 camera_controller = NodePath("../Camera Controller")
+vertical_ledge_cast = NodePath("../Ledge Grab Rays/Vertical Ledge Cast")
+horizontal_ledge_cast = NodePath("../Ledge Grab Rays/Horizontal Ledge Cast")
 initial_state = NodePath("PLGround")
 
 [node name="PLGround" type="Node" parent="PlayerLocomotionController"]
@@ -49,6 +51,11 @@ current = true
 
 [node name="Ledge Grab Rays" type="Node3D" parent="."]
 
-[node name="Vertical Ledge Cast" type="RayCast3D" parent="Ledge Grab Rays"]
+[node name="Horizontal Ledge Cast" type="RayCast3D" parent="Ledge Grab Rays"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.391971, 0.0129791)
 target_position = Vector3(0, 0, -1)
+collision_mask = 2
+
+[node name="Vertical Ledge Cast" type="RayCast3D" parent="Ledge Grab Rays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.65)
+collision_mask = 2

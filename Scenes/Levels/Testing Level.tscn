@@ -37,14 +37,36 @@ shadow_enabled = true
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 
 [node name="Ground" type="CSGBox3D" parent="CSGCombiner3D"]
 size = Vector3(500, 1, 500)
 material = SubResource("StandardMaterial3D_nyex7")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Box" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -9)
 size = Vector3(4, 4, 5)
+material = SubResource("StandardMaterial3D_w2s0q")
+
+[node name="Box4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.3, -9)
+size = Vector3(4, 4, 5)
+material = SubResource("StandardMaterial3D_w2s0q")
+
+[node name="Box5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 6.3, -10)
+size = Vector3(4, 4, 5)
+material = SubResource("StandardMaterial3D_w2s0q")
+
+[node name="Box2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.3, -17)
+size = Vector3(4, 4, 5)
+material = SubResource("StandardMaterial3D_w2s0q")
+
+[node name="Box3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.3, -33)
+size = Vector3(20, 4, 20)
 material = SubResource("StandardMaterial3D_w2s0q")
 
 [node name="Player" parent="." instance=ExtResource("2_758r6")]

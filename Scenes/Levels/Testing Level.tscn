@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://ckb2wlybyfi0t"]
+
+[ext_resource type="Texture2D" uid="uid://o77we3sssywp" path="res://Imported Assets/KenneyNL Prototyping Textures/Dark/texture_08.png" id="1_6krs1"]
+[ext_resource type="PackedScene" uid="uid://cd4ftvc7ptglf" path="res://Scenes/Player.tscn" id="2_758r6"]
+[ext_resource type="Texture2D" uid="uid://cx71lahti4krt" path="res://Imported Assets/KenneyNL Prototyping Textures/Orange/texture_03.png" id="2_ij6qn"]
+[ext_resource type="PackedScene" uid="uid://d4eobggvwrs6w" path="res://Scenes/UI/Pause Menu.tscn" id="3_a3dd1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n3jnd"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_krsyk"]
+sky_material = SubResource("ProceduralSkyMaterial_n3jnd")
+
+[sub_resource type="Environment" id="Environment_pt1ka"]
+background_mode = 2
+sky = SubResource("Sky_krsyk")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nyex7"]
+albedo_texture = ExtResource("1_6krs1")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2s0q"]
+albedo_texture = ExtResource("2_ij6qn")
+uv1_triplanar = true
+
+[node name="Testing Level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_pt1ka")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Ground" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(500, 1, 500)
+material = SubResource("StandardMaterial3D_nyex7")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -9)
+size = Vector3(4, 4, 5)
+material = SubResource("StandardMaterial3D_w2s0q")
+
+[node name="Player" parent="." instance=ExtResource("2_758r6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause Menu" parent="CanvasLayer" instance=ExtResource("3_a3dd1")]

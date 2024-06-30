@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4eobggvwrs6w"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Menus/PauseMenu.gd" id="1_842ms"]
+
+[node name="Pause Menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_842ms")
+
+[node name="Bzckground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27451, 0.203922, 0.235294, 0.498039)

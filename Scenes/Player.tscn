@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cd4ftvc7ptglf"]
+[gd_scene load_steps=11 format=3 uid="uid://cd4ftvc7ptglf"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerLocomotionController.gd" id="1_b657k"]
+[ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="1_e7r4u"]
+[ext_resource type="PackedScene" uid="uid://c3d30qmrksxj7" path="res://Scenes/Character Models/Female Secretary.tscn" id="1_r63bd"]
 [ext_resource type="Script" path="res://Scripts/Player/CameraController.gd" id="2_4y1jh"]
 [ext_resource type="Script" path="res://Scripts/Player/Locomotion States/PLGround.gd" id="2_deog5"]
 [ext_resource type="Script" path="res://Scripts/Player/Locomotion States/PLAir.gd" id="3_ygxvg"]
@@ -8,8 +10,6 @@
 [ext_resource type="Script" path="res://Scripts/Player/PlayerInputController.gd" id="6_3kwbo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v6ak0"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ykb2l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rv2kh"]
 
@@ -19,20 +19,18 @@
 shape = SubResource("CapsuleShape3D_v6ak0")
 
 [node name="GFX" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+script = ExtResource("1_e7r4u")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="GFX"]
-mesh = SubResource("CapsuleMesh_ykb2l")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="GFX/CSGMesh3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.605518, -0.505707)
-size = Vector3(0.5, 0.3, 0.5)
+[node name="Female Secretary" parent="GFX" instance=ExtResource("1_r63bd")]
 
 [node name="PlayerInputController" type="Node" parent="."]
 script = ExtResource("6_3kwbo")
 
-[node name="PlayerLocomotionController" type="Node" parent="." node_paths=PackedStringArray("input_controller", "camera_controller", "vertical_ledge_cast", "horizontal_ledge_cast")]
+[node name="PlayerLocomotionController" type="Node" parent="." node_paths=PackedStringArray("input_controller", "skin_handler", "camera_controller", "vertical_ledge_cast", "horizontal_ledge_cast")]
 script = ExtResource("1_b657k")
 input_controller = NodePath("../PlayerInputController")
+skin_handler = NodePath("../GFX")
 camera_controller = NodePath("../Camera Controller")
 vertical_ledge_cast = NodePath("../Ledge Grab Rays/Vertical Ledge Cast")
 horizontal_ledge_cast = NodePath("../Ledge Grab Rays/Horizontal Ledge Cast")
@@ -48,10 +46,11 @@ friction = 20.0
 
 [node name="PLLedgeGrab" type="Node" parent="PlayerLocomotionController"]
 script = ExtResource("4_t2awr")
+vertical_dist_away_from_ledge = 1.0
 
 [node name="Camera Controller" type="SpringArm3D" parent="." node_paths=PackedStringArray("target")]
 shape = SubResource("SphereShape3D_rv2kh")
-spring_length = 5.0
+spring_length = 4.0
 margin = 0.5
 script = ExtResource("2_4y1jh")
 target = NodePath("..")

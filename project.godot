@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Eventbus="*res://Scripts/Autoloads/Eventbus.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 

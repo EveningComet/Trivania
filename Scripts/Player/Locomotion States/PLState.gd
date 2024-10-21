@@ -18,6 +18,8 @@ var input_dir: Vector3 = Vector3.ZERO
 
 var input_controller:  PlayerInputController
 var camera_controller: CameraController
+var skin_handler:      SkinHandler
+var locomotion_anim_sm: AnimationNodeStateMachinePlayback
 
 func setup_state(new_sm: PlayerLocomotionController) -> void:
 	super(new_sm)
@@ -25,6 +27,8 @@ func setup_state(new_sm: PlayerLocomotionController) -> void:
 	cb                = new_sm.cb
 	camera_controller = new_sm.camera_controller
 	input_controller  = new_sm.input_controller
+	skin_handler      = new_sm.skin_handler
+	locomotion_anim_sm = skin_handler.animation_tree.get("parameters/MovementStateMachine/playback")
 
 func physics_update(delta: float) -> void:
 	handle_move( delta )

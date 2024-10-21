@@ -25,10 +25,12 @@ func enter(msgs: Dictionary = {}) -> void:
 		{'velocity': var v, 'jumping': var mjv}:
 			velocity   = v
 			velocity.y = max_jump_velocity
+			locomotion_anim_sm.travel("jump")
 		
 		# Entered from a fall
 		{'velocity': var v}:
 			velocity = v
+			locomotion_anim_sm.travel("falling")
 
 func exit() -> void:
 	velocity = Vector3.ZERO

@@ -7,6 +7,7 @@ func enter(msgs: Dictionary = {}) -> void:
 		# Entered with velocity from a previous state
 		{'velocity': var v}:
 			velocity = v
+	locomotion_anim_sm.travel("locomotion")
 
 func exit() -> void:
 	velocity = Vector3.ZERO
@@ -20,6 +21,8 @@ func handle_move(delta: float) -> void:
 	cb.move_and_slide()
 	
 	check_if_on_ground_or_ceiling()
+	
+	skin_handler.animation_tree.set("parameters/MovementStateMachine/locomotion/blend_position", cb.velocity.length() / move_speed)
 	
 	# Air related checks
 	if cb.is_on_floor() == true and input_controller.jump_pressed == true:

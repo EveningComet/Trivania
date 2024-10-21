@@ -2,8 +2,8 @@
 class_name PLLedgeGrab extends PLState
 
 # How far away do we want to be from the collision point?
-var horizontal_dist_away_from_ledge: float = -0.5
-var vertical_dist_away_from_ledge:   float = 0.5
+@export var horizontal_dist_away_from_ledge: float = -0.5
+@export var vertical_dist_away_from_ledge:   float = 0.5
 
 func enter(msgs: Dictionary = {}) -> void:
 	var vert_collision_point = my_state_machine.vertical_ledge_cast.get_collision_point()
@@ -11,6 +11,8 @@ func enter(msgs: Dictionary = {}) -> void:
 	cb.global_transform.origin   = hori_collision_point - cb.basis.z * horizontal_dist_away_from_ledge
 	cb.global_transform.origin.y = vert_collision_point.y - vertical_dist_away_from_ledge
 	# TODO: Face the collision point.
+	
+	skin_handler.animation_tree.get("parameters/MovementStateMachine/playback").travel("hanging idle")
 
 func exit() -> void:
 	velocity = Vector3.ZERO

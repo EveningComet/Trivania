@@ -8,7 +8,7 @@ var vertical_dist_away_from_ledge:   float = 0.5
 func enter(msgs: Dictionary = {}) -> void:
 	var vert_collision_point = my_state_machine.vertical_ledge_cast.get_collision_point()
 	var hori_collision_point = my_state_machine.horizontal_ledge_cast.get_collision_point()
-	cb.global_transform.origin = hori_collision_point - cb.basis.z * horizontal_dist_away_from_ledge
+	cb.global_transform.origin   = hori_collision_point - cb.basis.z * horizontal_dist_away_from_ledge
 	cb.global_transform.origin.y = vert_collision_point.y - vertical_dist_away_from_ledge
 	# TODO: Face the collision point.
 
@@ -19,10 +19,10 @@ func physics_update(delta: float) -> void:
 	handle_move(delta)
 
 func handle_move(delta: float) -> void:
-	if Input.is_action_just_pressed("jump"):
+	if input_controller.jump_pressed:
 		my_state_machine.change_to_state(
 			"PLAir",
-			{velocity = velocity, max_jump_velocity = max_jump_velocity}
+			{velocity = velocity, "jumping" = true}
 		)
 		return
 	

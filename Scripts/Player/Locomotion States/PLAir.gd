@@ -1,6 +1,15 @@
 ## For when the player is in the air.
 class_name PLAir extends PLState
 
+# Jump & gravity
+@export_category("Jumping & Gravity Values")
+@export var time_to_jump_apex: float = 0.4 # How long, in seconds, it takes us to reach the height of our jump
+@export var max_jump_height:   float = 4   # How high we can jump
+@export var min_jump_height:   float = 1   # How low we can jump
+var max_jump_velocity: float = 0
+var min_jump_velocity: float = 0
+var gravity:           float = 9.8
+
 func setup_state(new_sm: PlayerLocomotionController) -> void:
 	super(new_sm)
 	
@@ -13,7 +22,7 @@ func enter(msgs: Dictionary = {}) -> void:
 	match msgs:
 		
 		# We entered from a jump
-		{'velocity': var v, 'max_jump_velocity': var mjv}:
+		{'velocity': var v, 'jumping': var mjv}:
 			velocity   = v
 			velocity.y = max_jump_velocity
 		
@@ -29,7 +38,7 @@ func handle_move(delta: float) -> void:
 	apply_movement( delta )
 	apply_friction( delta )
 	
-	if Input.is_action_just_released("jump") and velocity.y > min_jump_velocity:
+	if input_controller.jump_released == true and velocity.y > min_jump_velocity:
 		velocity.y = min_jump_velocity
 	
 	velocity.y -= gravity * delta
@@ -48,33 +57,6 @@ func handle_move(delta: float) -> void:
 		velocity.y = 0
 		my_state_machine.change_to_state("PLGround", {velocity = velocity})
 		return
-	
-func get_input_vector() -> void:
-	# Get our movement value, adjusted to work with controllers
-	input_dir = Vector3.ZERO
-	input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	input_dir.z = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
-	input_dir = input_dir.normalized() if input_dir.length() > 1 else input_dir
-	
-		# Move in the rotation of the camera
-	# Also normalized so we don't move faster diagonally
-	input_dir = input_dir.rotated(Vector3.UP, camera_controller.rotation.y).normalized() if input_dir.length() > 1 else input_dir.rotated(Vector3.UP, camera_controller.rotation.y)
-
-func apply_movement(delta: float) -> void:
-	if input_dir != Vector3.ZERO:
-		velocity.x = velocity.move_toward(input_dir * move_speed, air_accel * delta).x
-		velocity.z = velocity.move_toward(input_dir * move_speed, air_accel * delta).z
-		
-		# Face the direction we're moving
-		cb.rotation.y = lerp_angle(
-			cb.rotation.y,
-			atan2(-input_dir.x, -input_dir.z),
-			rot_speed * delta
-		)
-
-func apply_friction(delta: float) -> void:
-	if input_dir == Vector3.ZERO:
-		velocity = velocity.move_toward(Vector3.ZERO, air_friction * delta)
 
 func can_ledge_grab() -> bool:
 	# Only ledge grab when the player is falling

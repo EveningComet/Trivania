@@ -1,10 +1,12 @@
 ## Controls the camera for the player.
 class_name CameraController extends SpringArm3D
 
+## Controls how fast the camer moves.
+@export var speed: float = 20.0
+
 ## The node where the player is stored.
-@export var player_path: NodePath
-var target: Node3D
-var offset: Vector3 = Vector3(0, 1.5, 0)
+@export var target: Node3D
+@export var offset: Vector3 = Vector3(0, 1.5, 0)
 
 var mouse_sensitivity:      float = 0.1 # TODO: Clamp this between 0.1 and 1. Also, make this a global setting.
 var controller_sensitivity: float = 2.5 # TODO: Make this a global setting.
@@ -18,8 +20,6 @@ var wrap_max: float = 360.0
 
 func _ready() -> void:
 	set_as_top_level(true)
-	
-	target = get_node(player_path)
 	add_excluded_object( target.get_rid() )
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -38,8 +38,7 @@ func _physics_process(delta: float) -> void:
 func move_camera(delta: float) -> void:
 	apply_controller_rotation()
 	
-	var target_pos: Vector3 = target.global_position + offset
-	global_position = target_pos
+	global_position = lerp(global_position, target.global_position + offset, speed * delta)
 
 func apply_controller_rotation() -> void:
 	var axis_vector = Vector2.ZERO

@@ -3,20 +3,9 @@ class_name PLState extends State
 
 @export_category("Movement Speed Values")
 @export var move_speed:      float = 10   # How fast this state moves
-@export var ground_accel:    float = 60.0
-@export var ground_friction: float = 50.0
-@export var air_accel:       float = 20.0
-@export var air_friction:    float = 20.0
+@export var accel:           float = 60.0
+@export var friction:        float = 50.0
 @export var rot_speed:       float = 10.0 # How fast the character rotates in this state
-
-# Jump & gravity
-@export_category("Jumping & Gravity Values")
-@export var time_to_jump_apex: float = 0.4 # How long, in seconds, it takes us to reach the height of our jump
-@export var max_jump_height:   float = 4   # How high we can jump
-@export var min_jump_height:   float = 1   # How low we can jump
-var max_jump_velocity: float = 0
-var min_jump_velocity: float = 0
-var gravity:           float = 9.8
 
 ## Every state requires movement in some form.
 var cb: CharacterBody3D
@@ -27,13 +16,15 @@ var velocity: Vector3 = Vector3.ZERO
 ## The stored input for the state.
 var input_dir: Vector3 = Vector3.ZERO
 
+var input_controller:  PlayerInputController
 var camera_controller: CameraController
 
 func setup_state(new_sm: PlayerLocomotionController) -> void:
 	super(new_sm)
 	
-	cb = new_sm.cb
+	cb                = new_sm.cb
 	camera_controller = new_sm.camera_controller
+	input_controller  = new_sm.input_controller
 
 func physics_update(delta: float) -> void:
 	handle_move( delta )
@@ -45,13 +36,32 @@ func handle_gravity(delta: float) -> void:
 	pass
 
 func get_input_vector() -> void:
-	pass
+	# Get our movement value, adjusted to work with controllers
+	input_dir = Vector3.ZERO
+	input_dir.x = input_controller.input_dir.x
+	input_dir.z = input_controller.input_dir.z
+	input_dir = input_dir.normalized() if input_dir.length() > 1 else input_dir
+	
+	# Move in the rotation of the camera
+	# Also normalized so we don't move faster diagonally
+	input_dir = input_dir.rotated(Vector3.UP, camera_controller.rotation.y).normalized() if input_dir.length() > 1 else input_dir.rotated(Vector3.UP, camera_controller.rotation.y)
 
 func apply_movement(delta: float) -> void:
-	pass
+	if input_dir != Vector3.ZERO:
+		velocity.x = velocity.move_toward(input_dir * move_speed, accel * delta).x
+		velocity.z = velocity.move_toward(input_dir * move_speed, accel * delta).z
+		
+		# Face the direction we're moving
+		cb.rotation.y = lerp_angle(
+			cb.rotation.y,
+			atan2(-input_dir.x, -input_dir.z),
+			rot_speed * delta
+		)
 
 func apply_friction(delta: float) -> void:
-	pass
+	if input_dir == Vector3.ZERO:
+		velocity.x = velocity.move_toward(Vector3.ZERO, friction * delta).x
+		velocity.z = velocity.move_toward(Vector3.ZERO, friction * delta).z
 
 ## Handles orienting the character towards a direction.
 func orient_character_to_direction(direction: Vector3, delta: float) -> void:

@@ -11,7 +11,6 @@ func enter(msgs: Dictionary = {}) -> void:
 		{'velocity': var v}:
 			velocity = v
 	
-	print("PLWallSlide :: Entered.")
 
 func exit() -> void:
 	velocity = Vector3.ZERO

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://jirl8o4wj0de"
+path="res://.godot/imported/Vindswept - Windswept Murmur.ogg-1456e9985981428a8d41f06b319d71e4.oggvorbisstr"
+
+[deps]
+
+source_file="res://Imported Assets/Audio/Audio/Music/Vindswept/Vindswept - Windswept Murmur.ogg"
+dest_files=["res://.godot/imported/Vindswept - Windswept Murmur.ogg-1456e9985981428a8d41f06b319d71e4.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=30.0
+bpm=0.0
+beat_count=0
+bar_beats=4

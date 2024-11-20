@@ -14,7 +14,7 @@ config/name="Trivania"
 config/description="A 3D, action platformer."
 run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Imported Assets/Icon/moon-bats.svg"
 
 [autoload]
 

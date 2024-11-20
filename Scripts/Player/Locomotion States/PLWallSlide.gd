@@ -9,31 +9,28 @@ class_name PLWallSlide extends PLState
 func enter(msgs: Dictionary = {}) -> void:
 	match msgs:
 		{'velocity': var v}:
-			velocity = v
+			_velocity = v
 	
 
 func exit() -> void:
-	velocity = Vector3.ZERO
+	_velocity = Vector3.ZERO
 
 func handle_move(delta: float) -> void:
 	# We should exit now
-	if cb.is_on_floor() == true or cb.is_on_wall() == false:
+	if _cb.is_on_floor() == true or _cb.is_on_wall() == false:
 		my_state_machine.change_to_state("PLGround")
 		return
 	
 	if Input.is_action_just_pressed("jump"):
-		var normal = cb.get_wall_normal()
-		velocity = normal * wall_jump_away_force
+		var normal = _cb.get_wall_normal()
+		_velocity = normal * wall_jump_away_force
 		
 		my_state_machine.change_to_state(
 			"PLAir",
-			{velocity = velocity, "wall_jump_away_height" = wall_jump_away_height}
+			{_velocity = _velocity, "wall_jump_away_height" = wall_jump_away_height}
 		)
 		
 	# Go downwards
-	velocity.y -= wallslide_speed * delta
-	cb.set_velocity( velocity )
-	cb.move_and_slide()
-	
-	var cam_dir = (my_state_machine.camera_controller.global_transform.basis * Vector3.BACK).normalized()
-	orient_character_to_direction(cam_dir, delta)
+	_velocity.y -= wallslide_speed * delta
+	_cb.set_velocity( _velocity )
+	_cb.move_and_slide()

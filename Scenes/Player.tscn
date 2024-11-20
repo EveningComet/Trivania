@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cd4ftvc7ptglf"]
+[gd_scene load_steps=12 format=3 uid="uid://cd4ftvc7ptglf"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerLocomotionController.gd" id="1_b657k"]
 [ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="1_e7r4u"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/Locomotion States/PLAir.gd" id="3_ygxvg"]
 [ext_resource type="Script" path="res://Scripts/Player/Locomotion States/PLLedgeGrab.gd" id="4_t2awr"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerInputController.gd" id="6_3kwbo"]
+[ext_resource type="Script" path="res://Scripts/Player/Locomotion States/PLDash.gd" id="8_8s7dy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v6ak0"]
 
@@ -47,6 +48,10 @@ friction = 20.0
 [node name="PLLedgeGrab" type="Node" parent="PlayerLocomotionController"]
 script = ExtResource("4_t2awr")
 vertical_dist_away_from_ledge = 1.0
+
+[node name="PLDash" type="Node" parent="PlayerLocomotionController"]
+script = ExtResource("8_8s7dy")
+move_speed = 25.0
 
 [node name="Camera Controller" type="SpringArm3D" parent="." node_paths=PackedStringArray("target")]
 shape = SubResource("SphereShape3D_rv2kh")

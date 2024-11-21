@@ -19,11 +19,11 @@
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_v6ak0")
 
-[node name="GFX" type="Node3D" parent="."]
+[node name="SkinHandler" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("1_e7r4u")
 
-[node name="Female Secretary" parent="GFX" instance=ExtResource("1_r63bd")]
+[node name="Female Secretary" parent="SkinHandler" instance=ExtResource("1_r63bd")]
 
 [node name="PlayerInputController" type="Node" parent="."]
 script = ExtResource("6_3kwbo")
@@ -31,7 +31,7 @@ script = ExtResource("6_3kwbo")
 [node name="PlayerLocomotionController" type="Node" parent="." node_paths=PackedStringArray("input_controller", "skin_handler", "camera_controller", "vertical_ledge_cast", "horizontal_ledge_cast")]
 script = ExtResource("1_b657k")
 input_controller = NodePath("../PlayerInputController")
-skin_handler = NodePath("../GFX")
+skin_handler = NodePath("../SkinHandler")
 camera_controller = NodePath("../Camera Controller")
 vertical_ledge_cast = NodePath("../Ledge Grab Rays/Vertical Ledge Cast")
 horizontal_ledge_cast = NodePath("../Ledge Grab Rays/Horizontal Ledge Cast")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckb2wlybyfi0t"]
+[gd_scene load_steps=12 format=3 uid="uid://ckb2wlybyfi0t"]
 
 [ext_resource type="Texture2D" uid="uid://o77we3sssywp" path="res://Imported Assets/KenneyNL Prototyping Textures/Dark/texture_08.png" id="1_6krs1"]
 [ext_resource type="PackedScene" uid="uid://cd4ftvc7ptglf" path="res://Scenes/Player.tscn" id="2_758r6"]
 [ext_resource type="Texture2D" uid="uid://cx71lahti4krt" path="res://Imported Assets/KenneyNL Prototyping Textures/Orange/texture_03.png" id="2_ij6qn"]
 [ext_resource type="PackedScene" uid="uid://d4eobggvwrs6w" path="res://Scenes/UI/Pause Menu.tscn" id="3_a3dd1"]
+[ext_resource type="PackedScene" uid="uid://bbj6ofyrpi7p4" path="res://Scenes/Levels/World/Moving Platform.tscn" id="5_1frdb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b8dhj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -26,6 +27,13 @@ uv1_triplanar = true
 albedo_texture = ExtResource("2_ij6qn")
 uv1_triplanar = true
 
+[sub_resource type="Curve3D" id="Curve3D_vngtq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -9.5, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [node name="Testing Level" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -37,7 +45,7 @@ environment = SubResource("Environment_p5814")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
-collision_layer = 3
+collision_layer = 2
 collision_mask = 3
 
 [node name="Ground" type="CSGBox3D" parent="CSGCombiner3D"]
@@ -86,3 +94,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Pause Menu" parent="CanvasLayer" instance=ExtResource("3_a3dd1")]
+
+[node name="Moving Platform" parent="." instance=ExtResource("5_1frdb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 12, -25)
+
+[node name="Platform" parent="Moving Platform" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Path3D" parent="Moving Platform" index="1"]
+curve = SubResource("Curve3D_vngtq")
+
+[node name="PathFollow3D" parent="Moving Platform/Path3D" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+rotation_mode = 1
+
+[node name="Moving Platform2" parent="." instance=ExtResource("5_1frdb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 12, -25)
+
+[editable path="Moving Platform"]

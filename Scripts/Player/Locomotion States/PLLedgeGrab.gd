@@ -12,7 +12,7 @@ func enter(msgs: Dictionary = {}) -> void:
 	_cb.global_transform.origin.y = vert_collision_point.y - vertical_dist_away_from_ledge
 	# TODO: Face the collision point.
 	
-	_skin_handler.animation_tree.get("parameters/MovementStateMachine/playback").travel("hanging idle")
+	_locomotion_anim_sm.travel("hanging idle")
 
 func exit() -> void:
 	_velocity = Vector3.ZERO

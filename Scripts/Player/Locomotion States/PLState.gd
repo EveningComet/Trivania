@@ -17,47 +17,53 @@ var _velocity: Vector3 = Vector3.ZERO
 var _input_dir: Vector3 = Vector3.ZERO
 
 var _input_controller:  PlayerInputController
-var camera_controller: CameraController
+var _camera_controller: CameraController
 var _skin_handler:      SkinHandler
-var locomotion_anim_sm: AnimationNodeStateMachinePlayback
+var _locomotion_anim_sm: AnimationNodeStateMachinePlayback
 
 func setup_state(new_sm: PlayerLocomotionController) -> void:
 	super(new_sm)
 	
 	_cb                = new_sm.cb
-	camera_controller = new_sm.camera_controller
+	_camera_controller = new_sm.camera_controller
 	_input_controller  = new_sm.input_controller
 	_skin_handler      = new_sm.skin_handler
-	locomotion_anim_sm = _skin_handler.animation_tree.get("parameters/MovementStateMachine/playback")
+	_locomotion_anim_sm = _skin_handler.animation_tree.get("parameters/locomotion/playback")
 
 func physics_update(delta: float) -> void:
 	_handle_move( delta )
 
 func _handle_move(delta: float) -> void:
-	pass
+	_get_input_vector()
+	_face_camera_dir( delta )
 	
 func _get_input_vector() -> void:
 	# Get our movement value, adjusted to work with controllers
-	_input_dir = Vector3.ZERO
-	_input_dir.x = _input_controller.input_dir.x
-	_input_dir.z = _input_controller.input_dir.z
+	_input_dir = _input_controller.input_dir
 	_input_dir = _input_dir.normalized() if _input_dir.length() > 1 else _input_dir
 	
-	# Move in the rotation of the camera
-	# Also normalized so we don't move faster diagonally
-	_input_dir = _input_dir.rotated(Vector3.UP, camera_controller.rotation.y).normalized() if _input_dir.length() > 1 else _input_dir.rotated(Vector3.UP, camera_controller.rotation.y)
+	# Change the input based on where the camera is looking
+	var forward = _camera_controller.basis.z
+	var right   = _camera_controller.basis.x
+	_input_dir  = forward * _input_dir.z + right * _input_dir.x
+	
+	# Apply the movement, taking into account gamepad input strength
+	_input_dir = _input_dir.normalized() if _input_dir.length() > 1 else _input_dir
 
+## Apply acceleration.
 func _apply_movement(delta: float) -> void:
 	if _input_dir != Vector3.ZERO:
 		_velocity.x = _velocity.move_toward(_input_dir * move_speed, accel * delta).x
 		_velocity.z = _velocity.move_toward(_input_dir * move_speed, accel * delta).z
-		
-		# Face the direction we're moving
-		_cb.rotation.y = lerp_angle(
-			_cb.rotation.y,
-			atan2(-_input_dir.x, -_input_dir.z),
-			rot_speed * delta
-		)
+
+func _handle_animations(delta: float) -> void:
+	pass
+
+## Apply a force to make the character stop moving.
+func _apply_friction(delta: float) -> void:
+	if _input_dir == Vector3.ZERO:
+		_velocity.x = _velocity.move_toward(Vector3.ZERO, friction * delta).x
+		_velocity.z = _velocity.move_toward(Vector3.ZERO, friction * delta).z
 
 ## Checks if the player can dash.
 func _check_for_dashing() -> void:
@@ -68,11 +74,6 @@ func _check_for_dashing() -> void:
 			
 		my_state_machine.change_to_state("PLDash", {"velocity" = _velocity, "dash_dir" = dash_dir})
 
-func _apply_friction(delta: float) -> void:
-	if _input_dir == Vector3.ZERO:
-		_velocity.x = _velocity.move_toward(Vector3.ZERO, friction * delta).x
-		_velocity.z = _velocity.move_toward(Vector3.ZERO, friction * delta).z
-
 ## Handles orienting the character towards a direction.
 func _orient_character_to_direction(direction: Vector3, delta: float) -> void:
 	var q_from = _cb.transform.basis.get_rotation_quaternion()
@@ -80,6 +81,10 @@ func _orient_character_to_direction(direction: Vector3, delta: float) -> void:
 	var rotation_basis = Basis(left_axis, Vector3.UP, direction).get_rotation_quaternion()
 	_cb.basis = Basis(q_from.slerp(rotation_basis, delta * rot_speed))
 	_cb.transform.basis = _cb.transform.basis.orthonormalized() # Prevent weird stuff from happening
+
+func _face_camera_dir(delta: float) -> void:
+	var camera_dir := (_camera_controller.global_transform.basis * Vector3.BACK).normalized()
+	_orient_character_to_direction(camera_dir, delta)
 
 ## Is the character currently on the floor?
 func _is_on_floor() -> bool:

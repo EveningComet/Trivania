@@ -25,18 +25,18 @@ func enter(msgs: Dictionary = {}) -> void:
 		{'velocity': var v, 'jumping': var mjv}:
 			_velocity   = v
 			_velocity.y = _max_jump_velocity
-			locomotion_anim_sm.travel("jump")
+			_locomotion_anim_sm.travel("jump")
 		
 		# Entered from a fall
 		{'velocity': var v}:
 			_velocity = v
-			locomotion_anim_sm.travel("falling")
+			_locomotion_anim_sm.travel("falling")
 
 func exit() -> void:
 	_velocity = Vector3.ZERO
 
 func _handle_move(delta: float) -> void:
-	_get_input_vector()
+	super(delta)
 	_apply_movement( delta )
 	_apply_friction( delta )
 	

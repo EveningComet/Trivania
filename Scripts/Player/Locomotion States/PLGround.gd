@@ -7,20 +7,18 @@ func enter(msgs: Dictionary = {}) -> void:
 		# Entered with velocity from a previous state
 		{'velocity': var v}:
 			_velocity = v
-	locomotion_anim_sm.travel("locomotion")
+	_locomotion_anim_sm.travel("movement")
 
 func exit() -> void:
 	_velocity = Vector3.ZERO
 
 func _handle_move(delta: float) -> void:
-	_get_input_vector()
+	super(delta)
 	_apply_movement( delta )
 	_apply_friction( delta )
 	
 	_cb.set_velocity( _velocity )
 	_cb.move_and_slide()
-	
-	_skin_handler.animation_tree.set("parameters/MovementStateMachine/locomotion/blend_position", _cb.velocity.length() / move_speed)
 	
 	# Air related checks
 	if _is_on_floor() == true and _input_controller.jump_pressed == true:
@@ -32,3 +30,11 @@ func _handle_move(delta: float) -> void:
 		return
 	
 	_check_for_dashing()
+	_handle_animations(delta)
+
+func _handle_animations(delta: float) -> void:
+	var modified_dir = _velocity * _cb.transform.basis
+	_skin_handler.animation_tree.set(
+		"parameters/locomotion/movement/blend_position",
+		Vector2(modified_dir.x, -modified_dir.z) / move_speed
+	)

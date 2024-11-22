@@ -1,6 +1,5 @@
 ## Base class for a state machine.
-class_name StateMachine
-extends Node
+class_name StateMachine extends Node
 
 @export var initial_state := NodePath()
 

@@ -77,15 +77,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.3, -33)
 size = Vector3(20, 12, 20)
 material = SubResource("StandardMaterial3D_w2s0q")
 
-[node name="Building2" type="CSGBox3D" parent="CSGCombiner3D/Building"]
+[node name="Cutout" type="CSGBox3D" parent="CSGCombiner3D/Building"]
 operation = 2
 size = Vector3(18, 11, 18)
 material = SubResource("StandardMaterial3D_w2s0q")
 
-[node name="Building3" type="CSGBox3D" parent="CSGCombiner3D/Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.95578, 6)
+[node name="Entrance Cutout" type="CSGBox3D" parent="CSGCombiner3D/Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.95578, 9.5)
 operation = 2
-size = Vector3(8, 5, 10)
+size = Vector3(8, 5, 3)
+material = SubResource("StandardMaterial3D_w2s0q")
+
+[node name="Entrance Cutout2" type="CSGBox3D" parent="CSGCombiner3D/Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45578, -9.5)
+operation = 2
+size = Vector3(18, 10, 3)
 material = SubResource("StandardMaterial3D_w2s0q")
 
 [node name="Player" parent="." instance=ExtResource("2_758r6")]

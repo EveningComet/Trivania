@@ -48,6 +48,7 @@ func _handle_move(delta: float) -> void:
 	_cb.move_and_slide()
 	
 	if _cb.is_on_ceiling() == true:
+		_locomotion_anim_sm.travel("falling")
 		_velocity.y = 0
 	
 	# Check for ledge grabs

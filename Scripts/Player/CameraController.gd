@@ -8,6 +8,9 @@ class_name CameraController extends SpringArm3D
 @export var target: Node3D
 @export var offset: Vector3 = Vector3(0, 1.5, 0)
 
+## Used to help with the aiming direction.
+@onready var _aim_cast: RayCast3D = $Camera3D/Aimcast
+
 var mouse_sensitivity:      float = 0.1 # TODO: Clamp this between 0.1 and 1. Also, make this a global setting.
 var controller_sensitivity: float = 2.5 # TODO: Make this a global setting.
 
@@ -21,6 +24,7 @@ var wrap_max: float = 360.0
 func _ready() -> void:
 	set_as_top_level(true)
 	add_excluded_object( target.get_rid() )
+	_aim_cast.add_exception( get_parent() )
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -53,3 +57,7 @@ func apply_controller_rotation() -> void:
 		# Handle the controller's y rotation
 		rotate_y( deg_to_rad(-axis_vector.y) * controller_sensitivity )
 		rotation_degrees.y = wrapf(rotation_degrees.y, wrap_0, wrap_max)
+
+## Used to get the direction of where the camera is facing for aiming.
+func get_aim_target() -> Vector3:
+	return _aim_cast.global_transform * _aim_cast.target_position

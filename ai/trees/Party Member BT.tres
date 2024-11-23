@@ -1,0 +1,33 @@
+[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://uq1yqpdgjjsx"]
+
+[ext_resource type="Script" path="res://ai/tasks/CheckIfShouldFollowPlayer.gd" id="1_6d7p5"]
+[ext_resource type="Script" path="res://ai/tasks/MoveTowardsTarget.gd" id="2_raskp"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ineuw"]
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_y4p3w"]
+text = "LimboAI :: Ally in follow player sequence."
+
+[sub_resource type="BTAction" id="BTAction_4fef5"]
+script = ExtResource("1_6d7p5")
+max_allowed_distance = 20.0
+
+[sub_resource type="BTWait" id="BTWait_1fd1h"]
+duration = 0.25
+
+[sub_resource type="BTAction" id="BTAction_sl1vr"]
+script = ExtResource("2_raskp")
+target_destination_distance = 3.0
+target_var = &"target"
+
+[sub_resource type="BTSequence" id="BTSequence_047sy"]
+custom_name = "Follow Player Sequence"
+children = [SubResource("BTConsolePrint_y4p3w"), SubResource("BTAction_4fef5"), SubResource("BTWait_1fd1h"), SubResource("BTAction_sl1vr")]
+
+[sub_resource type="BTSelector" id="BTSelector_ys4a5"]
+custom_name = "Determine What To Do"
+children = [SubResource("BTSequence_047sy")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ineuw")
+root_task = SubResource("BTSelector_ys4a5")

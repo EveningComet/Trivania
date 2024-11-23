@@ -1,0 +1,6 @@
+[gd_resource type="BehaviorTree" load_steps=2 format=3 uid="uid://c35jcnovgt8dj"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_8m3v4"]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_8m3v4")

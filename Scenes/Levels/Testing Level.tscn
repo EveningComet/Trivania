@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckb2wlybyfi0t"]
+[gd_scene load_steps=14 format=3 uid="uid://ckb2wlybyfi0t"]
 
 [ext_resource type="Texture2D" uid="uid://o77we3sssywp" path="res://Imported Assets/KenneyNL Prototyping Textures/Dark/texture_08.png" id="1_6krs1"]
 [ext_resource type="PackedScene" uid="uid://cd4ftvc7ptglf" path="res://Scenes/Player.tscn" id="2_758r6"]
 [ext_resource type="Texture2D" uid="uid://cx71lahti4krt" path="res://Imported Assets/KenneyNL Prototyping Textures/Orange/texture_03.png" id="2_ij6qn"]
 [ext_resource type="PackedScene" uid="uid://d4eobggvwrs6w" path="res://Scenes/UI/Pause Menu.tscn" id="3_a3dd1"]
 [ext_resource type="PackedScene" uid="uid://bbj6ofyrpi7p4" path="res://Scenes/Levels/World/Moving Platform.tscn" id="5_1frdb"]
+[ext_resource type="PackedScene" uid="uid://b3mdidqasvqq7" path="res://Scenes/Levels/World/Physics Ball.tscn" id="6_e8tjd"]
+[ext_resource type="PackedScene" uid="uid://b82panu2raoqm" path="res://Scenes/Levels/World/Physics Box.tscn" id="7_huv2e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b8dhj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -116,5 +118,11 @@ rotation_mode = 1
 
 [node name="Moving Platform2" parent="." instance=ExtResource("5_1frdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 12, -25)
+
+[node name="Physics Ball" parent="." instance=ExtResource("6_e8tjd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.06526, 2.19823, -4)
+
+[node name="Physics Box" parent="." instance=ExtResource("7_huv2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4, -5)
 
 [editable path="Moving Platform"]

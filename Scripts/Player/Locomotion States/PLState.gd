@@ -40,12 +40,9 @@ func _handle_move(delta: float) -> void:
 func _get_input_vector() -> void:
 	# Get our movement value, adjusted to work with controllers
 	_input_dir = _input_controller.input_dir
-	_input_dir = _input_dir.normalized() if _input_dir.length() > 1 else _input_dir
 	
-	# Change the input based on where the camera is looking
-	var forward = _camera_controller.basis.z
-	var right   = _camera_controller.basis.x
-	_input_dir  = forward * _input_dir.z + right * _input_dir.x
+	# Change the input to be based on our forward direction
+	_input_dir = _cb.transform.basis * Vector3(_input_dir.x, 0.0, _input_dir.z)
 	
 	# Apply the movement, taking into account gamepad input strength
 	_input_dir = _input_dir.normalized() if _input_dir.length() > 1 else _input_dir

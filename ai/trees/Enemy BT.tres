@@ -1,8 +1,55 @@
-[gd_resource type="BehaviorTree" load_steps=3 format=3 uid="uid://c35jcnovgt8dj"]
+[gd_resource type="BehaviorTree" load_steps=18 format=3 uid="uid://c35jcnovgt8dj"]
+
+[ext_resource type="Script" path="res://ai/tasks/SearchForPlayer.gd" id="1_hqchq"]
+[ext_resource type="Script" path="res://ai/tasks/MoveTowardsTarget.gd" id="2_3hucl"]
+[ext_resource type="Script" path="res://ai/tasks/RotateTowardsTarget.gd" id="3_qpd3g"]
+[ext_resource type="Script" path="res://ai/tasks/PerformAction.gd" id="4_6pcpg"]
+[ext_resource type="Script" path="res://ai/tasks/IsTargetCloseEnough.gd" id="4_a2u2u"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_xh44u"]
 
+[sub_resource type="BTAction" id="BTAction_1jg5n"]
+script = ExtResource("4_a2u2u")
+max_distance = 5.0
+min_distance = 1.0
+target_var = &"target"
+
+[sub_resource type="BTAction" id="BTAction_o2plq"]
+script = ExtResource("3_qpd3g")
+target_var = &"target"
+
+[sub_resource type="BTAction" id="BTAction_d5e48"]
+script = ExtResource("4_6pcpg")
+anim_name_string = "attack"
+
+[sub_resource type="BTParallel" id="BTParallel_wnxav"]
+children = [SubResource("BTAction_o2plq"), SubResource("BTAction_d5e48")]
+
+[sub_resource type="BTWait" id="BTWait_tqxd6"]
+duration = 2.0
+custom_name = "Action cooldown"
+
+[sub_resource type="BTSequence" id="BTSequence_bk42t"]
+custom_name = "Perform Attack"
+children = [SubResource("BTAction_1jg5n"), SubResource("BTParallel_wnxav"), SubResource("BTWait_tqxd6")]
+
+[sub_resource type="BTAction" id="BTAction_cetnr"]
+script = ExtResource("1_hqchq")
+
+[sub_resource type="BTWait" id="BTWait_4q6v4"]
+duration = 0.5
+
+[sub_resource type="BTAction" id="BTAction_hchb5"]
+script = ExtResource("2_3hucl")
+target_destination_distance = 5.0
+target_var = &"target"
+
+[sub_resource type="BTSequence" id="BTSequence_piko7"]
+custom_name = "Move Towards Player"
+children = [SubResource("BTAction_cetnr"), SubResource("BTWait_4q6v4"), SubResource("BTAction_hchb5")]
+
 [sub_resource type="BTSelector" id="BTSelector_hvmi7"]
+children = [SubResource("BTSequence_bk42t"), SubResource("BTSequence_piko7")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_xh44u")

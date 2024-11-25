@@ -1,0 +1,148 @@
+[gd_scene load_steps=23 format=3 uid="uid://rq3y2cks7mho"]
+
+[ext_resource type="PackedScene" uid="uid://bt4062arsscsd" path="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat.glb" id="1_xmm2i"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_8rkhf"]
+[ext_resource type="Texture2D" uid="uid://sqtc0rrngnal" path="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat_Hazmet_Tex.png" id="3_5ll37"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_35cbn"]
+render_priority = 1
+shader = ExtResource("2_8rkhf")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
+shader_parameter/albedo_texture = ExtResource("3_5ll37")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_23ov3"]
+animation = &"Lightning Blast"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_bkyx2"]
+filter_enabled = true
+filters = ["", "Original/Skeleton3D:breast.L", "Original/Skeleton3D:breast.R", "Original/Skeleton3D:forearm.L", "Original/Skeleton3D:forearm.R", "Original/Skeleton3D:hand.L", "Original/Skeleton3D:hand.R", "Original/Skeleton3D:spine.003", "Original/Skeleton3D:spine.004", "Original/Skeleton3D:upper_arm.L", "Original/Skeleton3D:upper_arm.R"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gmgpr"]
+animation = &"Falling"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4yced"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dix0i"]
+animation = &"Walk Forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gxt7x"]
+animation = &"Run Forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_upyg2"]
+animation = &"Walk Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_15otd"]
+animation = &"Run Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kr0hi"]
+animation = &"Walk Backwards"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0k1pr"]
+animation = &"Run Backward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_80007"]
+animation = &"Walk Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l717n"]
+animation = &"Run Left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_5q18u"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_4yced")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_dix0i")
+blend_point_1/pos = Vector2(0, 0.5)
+blend_point_2/node = SubResource("AnimationNodeAnimation_gxt7x")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_upyg2")
+blend_point_3/pos = Vector2(0.5, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_15otd")
+blend_point_4/pos = Vector2(1, 0)
+blend_point_5/node = SubResource("AnimationNodeAnimation_kr0hi")
+blend_point_5/pos = Vector2(0, -0.5)
+blend_point_6/node = SubResource("AnimationNodeAnimation_0k1pr")
+blend_point_6/pos = Vector2(0, -1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_80007")
+blend_point_7/pos = Vector2(-0.5, 0)
+blend_point_8/node = SubResource("AnimationNodeAnimation_l717n")
+blend_point_8/pos = Vector2(-1, 0)
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_peoi3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dleet"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nrmly"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3o1c2"]
+states/falling/node = SubResource("AnimationNodeAnimation_gmgpr")
+states/falling/position = Vector2(383.2, 57.2)
+states/movement/node = SubResource("AnimationNodeBlendSpace2D_5q18u")
+states/movement/position = Vector2(383.04, 146.8)
+transitions = ["Start", "movement", SubResource("AnimationNodeStateMachineTransition_peoi3"), "movement", "falling", SubResource("AnimationNodeStateMachineTransition_dleet"), "falling", "movement", SubResource("AnimationNodeStateMachineTransition_nrmly")]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q5wtb"]
+graph_offset = Vector2(-325.639, 16.4566)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_23ov3")
+nodes/Animation/position = Vector2(-272, 320)
+nodes/attack/node = SubResource("AnimationNodeOneShot_bkyx2")
+nodes/attack/position = Vector2(16, 96)
+nodes/locomotion/node = SubResource("AnimationNodeStateMachine_3o1c2")
+nodes/locomotion/position = Vector2(-240, 32)
+node_connections = [&"attack", 0, &"locomotion", &"attack", 1, &"Animation", &"output", 0, &"attack"]
+
+[node name="Hazmat" instance=ExtResource("1_xmm2i")]
+
+[node name="Original" parent="." index="0"]
+transform = Transform3D(0.157571, -0.0514237, -1.21473, 0.0838851, 1.22243, -0.0408684, 1.21292, -0.0778623, 0.160633, 0.0412558, -0.18849, 0.0514276)
+
+[node name="Skeleton3D" parent="Original" index="0"]
+bones/1/rotation = Quaternion(0.00561394, -0.0145665, -0.0113657, 0.999814)
+bones/2/rotation = Quaternion(-0.0594824, -0.0231454, -0.0183411, 0.997792)
+bones/3/rotation = Quaternion(0.0198246, -0.0216731, -0.020034, 0.999368)
+bones/4/rotation = Quaternion(0.0850754, -0.263969, -0.0957613, 0.955988)
+bones/6/rotation = Quaternion(-0.274825, 0.596846, -0.0684661, 0.750705)
+bones/7/rotation = Quaternion(0.665602, -0.0226217, 0.0886722, 0.740675)
+bones/8/rotation = Quaternion(-0.0528062, -0.0377132, 0.0387377, 0.99714)
+bones/10/rotation = Quaternion(-0.142405, -0.83104, 0.330971, 0.423734)
+bones/11/rotation = Quaternion(0.668545, -0.0313246, -0.0945055, 0.736977)
+bones/12/rotation = Quaternion(-0.0120715, 0.0829773, -0.0663131, 0.994269)
+bones/13/rotation = Quaternion(-3.0423e-08, 0.696936, 0.717133, -3.14232e-08)
+bones/14/rotation = Quaternion(-3.0423e-08, 0.696936, 0.717133, -3.14232e-08)
+bones/17/rotation = Quaternion(0.888041, 0.190105, -0.255896, 0.331301)
+bones/18/rotation = Quaternion(0.479353, -0.0498829, 0.0584989, 0.874249)
+bones/19/rotation = Quaternion(-0.615993, -0.0257185, 0.132624, 0.776081)
+bones/20/rotation = Quaternion(0.0125685, 0.96037, -0.278432, -0.00285332)
+bones/22/rotation = Quaternion(0.886057, -0.0880935, 0.0320998, 0.453996)
+bones/23/rotation = Quaternion(0.51457, -0.130863, 0.0807371, 0.843549)
+bones/24/rotation = Quaternion(-0.64442, 0.00526513, -0.145056, 0.750769)
+bones/25/rotation = Quaternion(-0.00465135, 0.957675, -0.287546, -0.0124178)
+
+[node name="Male_4" parent="Original/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_35cbn")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeBlendTree_q5wtb")
+anim_player = NodePath("../AnimationPlayer")
+parameters/attack/active = false
+parameters/attack/internal_active = false
+parameters/attack/request = 0
+parameters/locomotion/movement/blend_position = Vector2(-0.000909925, -0.00273228)

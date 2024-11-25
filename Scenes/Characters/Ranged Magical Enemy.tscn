@@ -1,0 +1,62 @@
+[gd_scene load_steps=12 format=3 uid="uid://yt1xo0mx6xhp"]
+
+[ext_resource type="Script" path="res://Scripts/Character/AI/Enemy.gd" id="1_pk500"]
+[ext_resource type="Script" path="res://Scripts/Character/Pusher.gd" id="3_hnh1r"]
+[ext_resource type="BehaviorTree" uid="uid://c35jcnovgt8dj" path="res://ai/trees/Enemy BT.tres" id="4_4ed6y"]
+[ext_resource type="PackedScene" uid="uid://rq3y2cks7mho" path="res://Scenes/Characters/Character Models/Hazmat.tscn" id="5_ywd4h"]
+[ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="6_3ww1k"]
+[ext_resource type="Script" path="res://Scripts/Character/AI/AIMover.gd" id="6_lop2g"]
+[ext_resource type="Script" path="res://Scripts/Character/AI/Agent.gd" id="7_x75m2"]
+[ext_resource type="Script" path="res://Scripts/Character/Damageable.gd" id="8_1t4xp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pdgwc"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_p1600"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vb6li"]
+radius = 10.0
+
+[node name="Ranged Magical Enemy" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1_pk500")
+
+[node name="SkinHandler" type="Node3D" parent="."]
+script = ExtResource("6_3ww1k")
+
+[node name="Hazmat" parent="SkinHandler" instance=ExtResource("5_ywd4h")]
+transform = Transform3D(-0.8, 0, -6.99382e-08, 0, 0.8, 0, 6.99382e-08, 0, -0.8, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_pdgwc")
+
+[node name="Pusher" type="Node" parent="."]
+script = ExtResource("3_hnh1r")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("4_4ed6y")
+agent_node = NodePath("../Agent")
+blackboard_plan = SubResource("BlackboardPlan_p1600")
+
+[node name="AIMover" type="Node" parent="."]
+script = ExtResource("6_lop2g")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Agent" type="Node" parent="." node_paths=PackedStringArray("los_ray", "skin_handler", "mover")]
+script = ExtResource("7_x75m2")
+los_ray = NodePath("../LOS Ray")
+skin_handler = NodePath("../SkinHandler")
+mover = NodePath("../AIMover")
+
+[node name="LOS Ray" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+target_position = Vector3(0, 0, -100)
+
+[node name="Awareness Radius" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness Radius"]
+shape = SubResource("SphereShape3D_vb6li")
+
+[node name="Damageable" type="Node" parent="."]
+script = ExtResource("8_1t4xp")

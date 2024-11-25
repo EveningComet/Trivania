@@ -23,8 +23,14 @@ func _tick(delta: float) -> Status:
 		# TODO: Cooldown on recalculating path.
 		agent.mover.set_target_position(target.global_position)
 		
+		agent.mover.orient_to_direction( 
+			-agent.get_parent().global_position.direction_to(target.global_position),
+			delta
+		)
+		
 		var dist_sqr = agent.get_parent().global_position.distance_squared_to( target.global_position )
 		if dist_sqr <= _max_distance_squared:
+			agent.mover.set_target_position(agent.get_parent().global_position)
 			return SUCCESS
 			
 		return RUNNING

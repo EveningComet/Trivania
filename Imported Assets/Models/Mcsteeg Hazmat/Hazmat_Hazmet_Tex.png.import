@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf6mu0d7axoaf"
-path.s3tc="res://.godot/imported/texture_09.png-5c9a3c046f13744f07a824ba0b7769bb.s3tc.ctex"
+uid="uid://sqtc0rrngnal"
+path.s3tc="res://.godot/imported/Hazmat_Hazmet_Tex.png-bb7d1b132131feb38f023d242f3499e0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "e862823336c3363edc29d098e16f16cd"
+}
 
 [deps]
 
-source_file="res://Imported Assets/KenneyNL Prototyping Textures/Dark/texture_09.png"
-dest_files=["res://.godot/imported/texture_09.png-5c9a3c046f13744f07a824ba0b7769bb.s3tc.ctex"]
+source_file="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat_Hazmet_Tex.png"
+dest_files=["res://.godot/imported/Hazmat_Hazmet_Tex.png-bb7d1b132131feb38f023d242f3499e0.s3tc.ctex"]
 
 [params]
 

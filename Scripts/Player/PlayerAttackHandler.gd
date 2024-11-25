@@ -8,7 +8,7 @@ class_name PlayerAttackHandler extends Node
 
 var _attacking: bool = false # TODO: Find a way to not have to use this.
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	ik_target.position.z = 0.0
 	
 	if _locomotion_controller.curr_state is PLLedgeGrab:

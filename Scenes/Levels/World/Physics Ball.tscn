@@ -7,7 +7,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_t8w5p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gfma6"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("2_2ffqr")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/clamp_diffuse_to_max = false

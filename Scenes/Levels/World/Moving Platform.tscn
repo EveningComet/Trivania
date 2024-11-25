@@ -1,10 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbj6ofyrpi7p4"]
+[gd_scene load_steps=9 format=3 uid="uid://bbj6ofyrpi7p4"]
 
-[ext_resource type="Texture2D" uid="uid://d0fc10cpeblrp" path="res://Imported Assets/KenneyNL Prototyping Textures/Green/texture_10.png" id="1_p4c4r"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="1_lcoec"]
+[ext_resource type="Texture2D" uid="uid://d14iquj6fkgg5" path="res://Imported Assets/KenneyNL Prototyping Textures/Green/texture_09.png" id="2_cdcea"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bn0iq"]
-albedo_texture = ExtResource("1_p4c4r")
-uv1_triplanar = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehix0"]
+render_priority = 0
+shader = ExtResource("1_lcoec")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
+shader_parameter/albedo_texture = ExtResource("2_cdcea")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_84o4x"]
 size = Vector3(4, 0.5, 4)
@@ -62,7 +79,7 @@ collision_mask = 3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Platform"]
 size = Vector3(4, 0.5, 4)
-material = SubResource("StandardMaterial3D_bn0iq")
+material = SubResource("ShaderMaterial_ehix0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
 shape = SubResource("BoxShape3D_84o4x")

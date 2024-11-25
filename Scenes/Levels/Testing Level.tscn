@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ckb2wlybyfi0t"]
+[gd_scene load_steps=15 format=3 uid="uid://ckb2wlybyfi0t"]
 
 [ext_resource type="Texture2D" uid="uid://o77we3sssywp" path="res://Imported Assets/KenneyNL Prototyping Textures/Dark/texture_08.png" id="1_6krs1"]
 [ext_resource type="PackedScene" uid="uid://cd4ftvc7ptglf" path="res://Scenes/Player.tscn" id="2_758r6"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bbj6ofyrpi7p4" path="res://Scenes/Levels/World/Moving Platform.tscn" id="5_1frdb"]
 [ext_resource type="PackedScene" uid="uid://b3mdidqasvqq7" path="res://Scenes/Levels/World/Physics Ball.tscn" id="6_e8tjd"]
 [ext_resource type="PackedScene" uid="uid://b82panu2raoqm" path="res://Scenes/Levels/World/Physics Box.tscn" id="7_huv2e"]
+[ext_resource type="PackedScene" uid="uid://yt1xo0mx6xhp" path="res://Scenes/Characters/Enemy.tscn" id="8_w7pmw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b8dhj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -99,10 +100,6 @@ material = SubResource("StandardMaterial3D_w2s0q")
 [node name="Player" parent="." instance=ExtResource("2_758r6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Pause Menu" parent="CanvasLayer" instance=ExtResource("3_a3dd1")]
-
 [node name="Moving Platform" parent="." instance=ExtResource("5_1frdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 12, -25)
 
@@ -124,5 +121,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.06526, 2.19823, -4)
 
 [node name="Physics Box" parent="." instance=ExtResource("7_huv2e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4, -5)
+
+[node name="Pause Menu" type="CanvasLayer" parent="."]
+
+[node name="Pause Menu" parent="Pause Menu" instance=ExtResource("3_a3dd1")]
+
+[node name="Enemy" parent="." instance=ExtResource("8_w7pmw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.32588, 7.74794, -13.1906)
 
 [editable path="Moving Platform"]

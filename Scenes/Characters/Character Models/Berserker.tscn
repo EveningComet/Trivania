@@ -1,13 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://rq3y2cks7mho"]
+[gd_scene load_steps=23 format=3 uid="uid://41cfv6h3plr2"]
 
-[ext_resource type="PackedScene" uid="uid://bt4062arsscsd" path="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat.glb" id="1_xmm2i"]
-[ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_8rkhf"]
-[ext_resource type="Texture2D" uid="uid://sqtc0rrngnal" path="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat_Hazmet_Tex.png" id="3_5ll37"]
+[ext_resource type="PackedScene" uid="uid://bt4062arsscsd" path="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat.glb" id="1_0a3wc"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_88e2t"]
+[ext_resource type="Texture2D" uid="uid://sqtc0rrngnal" path="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat_Hazmet_Tex.png" id="3_lf1ke"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_35cbn"]
-render_priority = 1
-shader = ExtResource("2_8rkhf")
-shader_parameter/albedo = Color(1, 1, 1, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooffp"]
+render_priority = 0
+shader = ExtResource("2_88e2t")
+shader_parameter/albedo = Color(0.929285, 0.471215, 1, 1)
 shader_parameter/clamp_diffuse_to_max = false
 shader_parameter/cuts = 3
 shader_parameter/wrap = 0.0
@@ -22,7 +22,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.01
-shader_parameter/albedo_texture = ExtResource("3_5ll37")
+shader_parameter/albedo_texture = ExtResource("3_lf1ke")
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_23ov3"]
 animation = &"Lightning Blast"
@@ -99,7 +99,7 @@ states/movement/node = SubResource("AnimationNodeBlendSpace2D_5q18u")
 states/movement/position = Vector2(383.04, 146.8)
 transitions = ["Start", "movement", SubResource("AnimationNodeStateMachineTransition_peoi3"), "movement", "falling", SubResource("AnimationNodeStateMachineTransition_dleet"), "falling", "movement", SubResource("AnimationNodeStateMachineTransition_nrmly")]
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q5wtb"]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1sg3i"]
 graph_offset = Vector2(-325.639, 16.4566)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_23ov3")
 nodes/Animation/position = Vector2(-272, 320)
@@ -109,38 +109,38 @@ nodes/locomotion/node = SubResource("AnimationNodeStateMachine_3o1c2")
 nodes/locomotion/position = Vector2(-240, 32)
 node_connections = [&"attack", 0, &"locomotion", &"attack", 1, &"Animation", &"output", 0, &"attack"]
 
-[node name="Hazmat" instance=ExtResource("1_xmm2i")]
+[node name="Berserker" instance=ExtResource("1_0a3wc")]
 
 [node name="Original" parent="." index="0"]
-transform = Transform3D(0.349022, -0.0711361, -1.1731, -0.000690314, 1.22373, -0.0744113, 1.17526, 0.0218445, 0.348339, 0.0023845, -0.140793, -0.0858049)
+transform = Transform3D(0.708058, -0.146005, -0.990142, -0.0233209, 1.21014, -0.195122, 1.00058, 0.131526, 0.696126, 0.160718, -0.234024, -0.143606)
 
 [node name="Skeleton3D" parent="Original" index="0"]
-bones/1/rotation = Quaternion(-0.000814335, -0.0163091, -0.0121389, 0.999793)
-bones/2/rotation = Quaternion(-0.0720395, -0.0264507, -0.012422, 0.996974)
-bones/3/rotation = Quaternion(0.00724698, -0.0254187, -0.0143878, 0.999547)
-bones/4/rotation = Quaternion(0.119799, -0.156923, -0.0308098, 0.979834)
-bones/6/rotation = Quaternion(-0.271492, 0.717999, -0.178813, 0.615463)
-bones/7/rotation = Quaternion(0.716611, 0.00444747, 0.108812, 0.688919)
-bones/8/rotation = Quaternion(-0.0900971, -0.0539116, 0.0774722, 0.99145)
-bones/10/rotation = Quaternion(-0.215756, -0.809645, 0.271186, 0.47369)
-bones/11/rotation = Quaternion(0.613613, -0.00864033, -0.0759012, 0.785903)
-bones/12/rotation = Quaternion(-0.0541608, 0.131438, -0.0600277, 0.988022)
-bones/13/rotation = Quaternion(-3.0423e-08, 0.696936, 0.717133, -3.14232e-08)
-bones/14/rotation = Quaternion(-3.0423e-08, 0.696936, 0.717133, -3.14232e-08)
-bones/17/rotation = Quaternion(0.912367, 0.21194, -0.143163, 0.319643)
-bones/18/rotation = Quaternion(0.391805, -0.0633968, 0.0443764, 0.916788)
-bones/19/rotation = Quaternion(-0.57952, -0.0675806, 0.136536, 0.800592)
-bones/20/rotation = Quaternion(0.0122665, 0.96049, -0.278039, -0.00200241)
-bones/22/rotation = Quaternion(0.907504, -0.0624672, 0.0954572, 0.404255)
-bones/23/rotation = Quaternion(0.470056, -0.0632847, 0.0655002, 0.877925)
-bones/24/rotation = Quaternion(-0.646545, -0.0416601, -0.111748, 0.753496)
-bones/25/rotation = Quaternion(-0.00983768, 0.960106, -0.279458, 0.00163029)
+bones/1/rotation = Quaternion(-0.000837348, 0.0309119, -0.0299191, 0.999074)
+bones/2/rotation = Quaternion(-0.0666692, 0.0131004, 0.0198388, 0.997492)
+bones/3/rotation = Quaternion(0.00355688, 0.0110351, 0.00951806, 0.999888)
+bones/4/rotation = Quaternion(0.0526486, 0.0843851, -0.0185575, 0.994868)
+bones/6/rotation = Quaternion(0.0213455, 0.701323, -0.525483, 0.481205)
+bones/7/rotation = Quaternion(0.700038, -0.261972, -0.179316, 0.639659)
+bones/8/rotation = Quaternion(0.000857623, 0.0177113, -0.0275801, 0.999462)
+bones/10/rotation = Quaternion(-0.10142, -0.738144, 0.469933, 0.473308)
+bones/11/rotation = Quaternion(0.605375, 0.0955078, 0.029203, 0.78965)
+bones/12/rotation = Quaternion(0.234125, -0.0155286, 0.0985066, 0.967079)
+bones/13/rotation = Quaternion(-2.86959e-08, 0.696936, 0.717133, -3.21896e-08)
+bones/14/rotation = Quaternion(-2.86959e-08, 0.696936, 0.717133, -3.21896e-08)
+bones/17/rotation = Quaternion(0.724065, 0.144684, -0.383617, 0.554648)
+bones/18/rotation = Quaternion(0.484987, 0.124854, 0.0039685, 0.865554)
+bones/19/rotation = Quaternion(-0.506125, -0.031338, 0.0767263, 0.858469)
+bones/20/rotation = Quaternion(-0.0189291, 0.952699, -0.30049, -0.0413747)
+bones/22/rotation = Quaternion(0.861216, -0.219189, 0.266554, 0.373111)
+bones/23/rotation = Quaternion(0.4685, -0.00853251, 0.0441647, 0.882317)
+bones/24/rotation = Quaternion(-0.60048, 0.108532, -0.243873, 0.753771)
+bones/25/rotation = Quaternion(0.00198022, 0.957836, -0.287134, 0.00996206)
 
 [node name="Male_4" parent="Original/Skeleton3D" index="0"]
-surface_material_override/0 = SubResource("ShaderMaterial_35cbn")
+surface_material_override/0 = SubResource("ShaderMaterial_ooffp")
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
-tree_root = SubResource("AnimationNodeBlendTree_q5wtb")
+tree_root = SubResource("AnimationNodeBlendTree_1sg3i")
 anim_player = NodePath("../AnimationPlayer")
 parameters/attack/active = false
 parameters/attack/internal_active = false

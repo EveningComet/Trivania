@@ -1,0 +1,23 @@
+[gd_resource type="BehaviorTree" load_steps=7 format=3 uid="uid://c7n4b0fecnx6h"]
+
+[ext_resource type="Script" path="res://ai/tasks/Enemy Actions/EnemyJump.gd" id="2_ojdd5"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_xxy8m"]
+
+[sub_resource type="BTAction" id="BTAction_vgjpr"]
+script = ExtResource("2_ojdd5")
+jump_force = 25.0
+move_speed = 30.0
+
+[sub_resource type="BTWait" id="BTWait_i5b0d"]
+
+[sub_resource type="BTSequence" id="BTSequence_iuvxl"]
+custom_name = "Jump Towards Target"
+children = [SubResource("BTAction_vgjpr"), SubResource("BTWait_i5b0d")]
+
+[sub_resource type="BTSelector" id="BTSelector_1wy6h"]
+children = [SubResource("BTSequence_iuvxl")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_xxy8m")
+root_task = SubResource("BTSelector_1wy6h")

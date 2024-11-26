@@ -6,6 +6,8 @@ class_name Agent extends Node
 @export var skin_handler: SkinHandler
 @export var mover: AIMover
 
+@onready var cb: CharacterBody3D = get_parent()
+
 ## Is the line of sight valid?
 func is_los_valid(target_char: CharacterBody3D) -> bool:
 	# Handle the line of sight check

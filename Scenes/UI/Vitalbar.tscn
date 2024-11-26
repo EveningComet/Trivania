@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://decsji05sark4"]
+
+[ext_resource type="Script" path="res://Scripts/UI/General UI/Vitalbar.gd" id="1_nesfk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6sxo"]
+bg_color = Color(0.615686, 0.133333, 0.207843, 1)
+
+[node name="Vitalbar" type="ProgressBar"]
+custom_minimum_size = Vector2(500, 50)
+offset_right = 4.0
+offset_bottom = 27.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_v6sxo")
+value = 50.0
+script = ExtResource("1_nesfk")

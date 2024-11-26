@@ -5,18 +5,13 @@ class_name AIMover extends Node
 ## How fast to move in this state. (Has nothing to do with stats.)
 @export var move_speed: float = 7.5
 ## How fast it takes the character to get to their top speed.
-@export var accel:      float = 60.0
+@export var accel:     float = 60.0
 ## When not moving, this will help make the character stop moving.
-@export var friction:   float = 50.0
+@export var friction:  float = 50.0
 @export var rot_speed: float = 10.0
 
-@export_category("Jump & Gravity")
-@export var max_jump_height:   float = 3   # How high we can jump
-@export var min_jump_height:   float = 1   # How low we can jump
-@export var time_to_jump_apex: float = 0.4 # How long, in seconds, it takes us to reach the height of our jump
-var _max_jump_velocity: float = 0
-var _min_jump_velocity: float = 0
-var _gravity:           float = 9.8
+@export_category("Gravity")
+@export var gravity: float = 30.0
 
 @onready var _cb: CharacterBody3D = get_parent()
 @onready var _skin_handler: SkinHandler = get_parent().get_node("SkinHandler")
@@ -33,28 +28,24 @@ var _last_dir: Vector3 = Vector3.ZERO
 func _ready() -> void:
 	_nav_agent.velocity_computed.connect( _on_velocity_computed )
 	set_target_position(_cb.global_position)
-	
-	# Initialize the _gravity
-	_gravity = (2 * max_jump_height) / (time_to_jump_apex * time_to_jump_apex)
-	_max_jump_velocity = sqrt(2 * _gravity * max_jump_height)
-	_min_jump_velocity = sqrt(2 * _gravity * min_jump_height)
 
 func _physics_process(delta: float) -> void:
 	if _nav_agent.is_navigation_finished() == true:
 		_input_dir = Vector3.ZERO
 	else:
 		var next_path_position: Vector3 = _nav_agent.get_next_path_position()
-		_input_dir = _cb.global_position.direction_to( next_path_position )
+		_input_dir = (next_path_position - _cb.global_position).normalized()
 		_last_dir = _input_dir
 	
 	_apply_acceleration(delta)
 	_apply_friction(delta)
-	_velocity.y -= _gravity * delta
-	if _cb.is_on_floor() or _cb.is_on_ceiling():
-		_velocity.y = 0.0
+	_velocity.y -= gravity * delta
 	
 	_on_velocity_computed(_velocity)
 	_handle_animations(delta)
+
+	if _cb.is_on_floor() or _cb.is_on_ceiling():
+		_velocity.y = 0.0
 
 func set_target_position(target_pos: Vector3) -> void:
 	_nav_agent.set_target_position( target_pos )
@@ -68,6 +59,11 @@ func orient_to_direction(desired_dir: Vector3, delta: float) -> void:
 	
 	# Prevent weird stuff from happening
 	_cb.transform.basis = _cb.transform.basis.orthonormalized()
+
+## Perform a jump with the given force.
+func jump(jump_force: float) -> void:
+	_velocity.y = jump_force
+	_skin_handler.animation_tree["parameters/locomotion/playback"].travel("jump")
 
 ## Applies the movement with smoothing.
 func _apply_acceleration(delta: float) -> void:

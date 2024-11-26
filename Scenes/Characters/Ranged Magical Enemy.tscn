@@ -42,6 +42,7 @@ blackboard_plan = SubResource("BlackboardPlan_p1600")
 script = ExtResource("6_lop2g")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_max_distance = 30.01
 
 [node name="Agent" type="Node" parent="." node_paths=PackedStringArray("los_ray", "skin_handler", "mover")]
 script = ExtResource("7_x75m2")

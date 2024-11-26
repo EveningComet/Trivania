@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://gr6555jm2u42"]
+
+[ext_resource type="Script" path="res://Scripts/Character/AI/Enemy.gd" id="1_lka7p"]
+[ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="2_3ha6t"]
+[ext_resource type="PackedScene" uid="uid://41cfv6h3plr2" path="res://Scenes/Characters/Character Models/Berserker.tscn" id="4_kqu2e"]
+[ext_resource type="Script" path="res://Scripts/Character/Pusher.gd" id="4_s07vk"]
+[ext_resource type="BehaviorTree" uid="uid://c7n4b0fecnx6h" path="res://ai/trees/Berserker BT.tres" id="5_uy686"]
+[ext_resource type="Script" path="res://Scripts/Character/AI/AIMover.gd" id="6_2hghb"]
+[ext_resource type="Script" path="res://Scripts/Character/AI/Agent.gd" id="7_8of5b"]
+[ext_resource type="Script" path="res://Scripts/Character/Damageable.gd" id="8_aja78"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pdgwc"]
+radius = 1.0
+height = 2.8
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_p1600"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vb6li"]
+radius = 10.0
+
+[node name="Berserker Enemy" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1_lka7p")
+
+[node name="SkinHandler" type="Node3D" parent="."]
+script = ExtResource("2_3ha6t")
+
+[node name="Berserker" parent="SkinHandler" instance=ExtResource("4_kqu2e")]
+transform = Transform3D(-1.25, 0, -1.09278e-07, 0, 1.25, 0, 1.09278e-07, 0, -1.25, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+shape = SubResource("CapsuleShape3D_pdgwc")
+
+[node name="Pusher" type="Node" parent="."]
+script = ExtResource("4_s07vk")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("5_uy686")
+agent_node = NodePath("../Agent")
+blackboard_plan = SubResource("BlackboardPlan_p1600")
+
+[node name="AIMover" type="Node" parent="."]
+script = ExtResource("6_2hghb")
+gravity = 35.0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_max_distance = 30.01
+simplify_path = true
+simplify_epsilon = 1.0
+debug_enabled = true
+
+[node name="Agent" type="Node" parent="." node_paths=PackedStringArray("los_ray", "skin_handler", "mover")]
+script = ExtResource("7_8of5b")
+los_ray = NodePath("../LOS Ray")
+skin_handler = NodePath("../SkinHandler")
+mover = NodePath("../AIMover")
+
+[node name="LOS Ray" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+target_position = Vector3(0, 0, -100)
+
+[node name="Awareness Radius" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness Radius"]
+shape = SubResource("SphereShape3D_vb6li")
+
+[node name="Damageable" type="Node" parent="."]
+script = ExtResource("8_aja78")

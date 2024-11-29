@@ -23,7 +23,9 @@ func _handle_move(delta: float) -> void:
 	_curr_dash_time += delta
 	
 	if _is_on_floor() == true and _input_controller.jump_pressed == true:
-		my_state_machine.change_to_state("PLAir", {"velocity" = _velocity, "jumping" = true})
+		my_state_machine.change_to_state(
+			"PLAir", {"velocity" = _velocity, "jumping" = true}
+		)
 		return
 	
 	if _curr_dash_time > max_dash_time:

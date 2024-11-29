@@ -30,4 +30,8 @@ func upgrade_health(amount: int) -> void:
 	hp_changed.emit(curr_hp, max_hp)
 
 func die() -> void:
-	pass
+	if OS.is_debug_build() == true:
+		print("Damageable :: %s is dying." % [get_parent().name])
+	
+	# TODO: More robust death handling.
+	get_parent().queue_free()

@@ -67,3 +67,4 @@ shape = SubResource("SphereShape3D_vb6li")
 
 [node name="Damageable" type="Node" parent="."]
 script = ExtResource("8_aja78")
+max_hp = 15

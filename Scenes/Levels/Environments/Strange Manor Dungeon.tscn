@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2hulyh2rtsx2"]
+
+[ext_resource type="PackedScene" uid="uid://beodbkk6rvcoh" path="res://Imported Assets/Models/Environments/Strange Manor Dungeon/Strange Manor Dungeon.glb" id="1_775wf"]
+
+[node name="Strange Manor Dungeon" instance=ExtResource("1_775wf")]
+
+[node name="Window Frame" parent="." index="0"]
+visible = false
+
+[node name="StaticBody3D" parent="Window Frame" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Entrance" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Wall Bridge Thingies" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Gap Bridger" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="barrier" parent="Walkway" index="0"]
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Walkway" index="1"]
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Gap Bridger 2" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Big Room" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Boss Room" index="0"]
+collision_layer = 2
+collision_mask = 3

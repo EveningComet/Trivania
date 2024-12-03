@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://gr6555jm2u42"]
+[gd_scene load_steps=13 format=3 uid="uid://gr6555jm2u42"]
 
 [ext_resource type="Script" path="res://Scripts/Character/AI/Enemy.gd" id="1_lka7p"]
 [ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="2_3ha6t"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Character/AI/AIMover.gd" id="6_2hghb"]
 [ext_resource type="Script" path="res://Scripts/Character/AI/Agent.gd" id="7_8of5b"]
 [ext_resource type="Script" path="res://Scripts/Character/Damageable.gd" id="8_aja78"]
+[ext_resource type="Script" path="res://Scripts/Character/AI/AwarenessRadius.gd" id="8_jqtga"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pdgwc"]
 radius = 1.0
@@ -16,7 +17,7 @@ height = 2.8
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_p1600"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vb6li"]
-radius = 10.0
+radius = 35.0
 
 [node name="Berserker Enemy" type="CharacterBody3D"]
 collision_mask = 3
@@ -61,6 +62,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 target_position = Vector3(0, 0, -100)
 
 [node name="Awareness Radius" type="Area3D" parent="."]
+script = ExtResource("8_jqtga")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness Radius"]
 shape = SubResource("SphereShape3D_vb6li")

@@ -1,10 +1,41 @@
-[gd_resource type="BehaviorTree" load_steps=14 format=3 uid="uid://c35jcnovgt8dj"]
+[gd_resource type="BehaviorTree" load_steps=19 format=3 uid="uid://c35jcnovgt8dj"]
 
 [ext_resource type="Script" path="res://ai/tasks/SearchForPlayer.gd" id="1_hqchq"]
+[ext_resource type="Script" path="res://ai/tasks/Enemy Actions/EnemyNeedsTarget.gd" id="1_nmto1"]
 [ext_resource type="Script" path="res://ai/tasks/MoveTowardsTarget.gd" id="2_3hucl"]
 [ext_resource type="Script" path="res://ai/tasks/PerformAction.gd" id="4_6pcpg"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_xh44u"]
+
+[sub_resource type="BTAction" id="BTAction_tuix0"]
+script = ExtResource("1_nmto1")
+move_speed = 7.5
+
+[sub_resource type="BTWait" id="BTWait_5bts5"]
+duration = 0.5
+
+[sub_resource type="BTAction" id="BTAction_nvg3b"]
+script = ExtResource("1_hqchq")
+
+[sub_resource type="BTSequence" id="BTSequence_3u80k"]
+custom_name = "Search For Player Sequence"
+children = [SubResource("BTAction_tuix0"), SubResource("BTWait_5bts5"), SubResource("BTAction_nvg3b")]
+
+[sub_resource type="BTAction" id="BTAction_bvxp7"]
+script = ExtResource("1_nmto1")
+move_speed = 7.5
+
+[sub_resource type="BTInvert" id="BTInvert_4vp26"]
+children = [SubResource("BTAction_bvxp7")]
+
+[sub_resource type="BTAction" id="BTAction_108qk"]
+script = ExtResource("2_3hucl")
+target_destination_distance = 3.0
+target_var = &"target"
+
+[sub_resource type="BTSequence" id="BTSequence_piko7"]
+custom_name = "Move Towards Player"
+children = [SubResource("BTInvert_4vp26"), SubResource("BTAction_108qk")]
 
 [sub_resource type="BTAction" id="BTAction_6jx5c"]
 script = ExtResource("2_3hucl")
@@ -22,23 +53,8 @@ duration = 2.0
 custom_name = "Perform Attack Sequence"
 children = [SubResource("BTAction_6jx5c"), SubResource("BTAction_88ppw"), SubResource("BTWait_5rstt")]
 
-[sub_resource type="BTAction" id="BTAction_nvg3b"]
-script = ExtResource("1_hqchq")
-
-[sub_resource type="BTWait" id="BTWait_5bts5"]
-duration = 0.5
-
-[sub_resource type="BTAction" id="BTAction_108qk"]
-script = ExtResource("2_3hucl")
-target_destination_distance = 3.0
-target_var = &"target"
-
-[sub_resource type="BTSequence" id="BTSequence_piko7"]
-custom_name = "Move Towards Player"
-children = [SubResource("BTAction_nvg3b"), SubResource("BTWait_5bts5"), SubResource("BTAction_108qk")]
-
 [sub_resource type="BTSelector" id="BTSelector_hvmi7"]
-children = [SubResource("BTSequence_c2phc"), SubResource("BTSequence_piko7")]
+children = [SubResource("BTSequence_3u80k"), SubResource("BTSequence_piko7"), SubResource("BTSequence_c2phc")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_xh44u")

@@ -23,7 +23,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.6321, -17.7, -20.1731)
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 1.20547, -2)
 
 [node name="Ranged Magical Enemy" parent="." instance=ExtResource("8_w7pmw")]
-transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 33.958, -8.2, -34.3637)
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 33.958, -9.99582, -34.3637)
 
 [node name="Berserker" parent="." instance=ExtResource("12_w8syf")]
 transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 15.0078, 1.54573, -71.0937)

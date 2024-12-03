@@ -44,7 +44,9 @@ func _physics_process(delta: float) -> void:
 	_on_velocity_computed(_velocity)
 	_handle_animations(delta)
 
-	if _cb.is_on_floor() or _cb.is_on_ceiling():
+	if _cb.is_on_ceiling():
+		_velocity.y -= gravity * delta
+	if _cb.is_on_floor():
 		_velocity.y = 0.0
 
 func set_target_position(target_pos: Vector3) -> void:

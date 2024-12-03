@@ -1,8 +1,24 @@
-[gd_resource type="BehaviorTree" load_steps=7 format=3 uid="uid://c7n4b0fecnx6h"]
+[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://c7n4b0fecnx6h"]
 
+[ext_resource type="Script" path="res://ai/tasks/Enemy Actions/EnemyNeedsTarget.gd" id="1_h78ho"]
+[ext_resource type="Script" path="res://ai/tasks/SearchForPlayer.gd" id="1_yphji"]
 [ext_resource type="Script" path="res://ai/tasks/Enemy Actions/EnemyJump.gd" id="2_ojdd5"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_xxy8m"]
+
+[sub_resource type="BTAction" id="BTAction_rlphq"]
+script = ExtResource("1_h78ho")
+move_speed = 7.5
+
+[sub_resource type="BTWait" id="BTWait_pq7sg"]
+duration = 0.5
+
+[sub_resource type="BTAction" id="BTAction_m8aro"]
+script = ExtResource("1_yphji")
+
+[sub_resource type="BTSequence" id="BTSequence_b1lpn"]
+custom_name = "Search For Player Sequence"
+children = [SubResource("BTAction_rlphq"), SubResource("BTWait_pq7sg"), SubResource("BTAction_m8aro")]
 
 [sub_resource type="BTAction" id="BTAction_vgjpr"]
 script = ExtResource("2_ojdd5")
@@ -16,7 +32,7 @@ custom_name = "Jump Towards Target"
 children = [SubResource("BTAction_vgjpr"), SubResource("BTWait_i5b0d")]
 
 [sub_resource type="BTSelector" id="BTSelector_1wy6h"]
-children = [SubResource("BTSequence_iuvxl")]
+children = [SubResource("BTSequence_b1lpn"), SubResource("BTSequence_iuvxl")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_xxy8m")

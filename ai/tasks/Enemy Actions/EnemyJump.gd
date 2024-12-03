@@ -4,11 +4,9 @@ extends EnemyAction
 @export var jump_force: float = 15.0
 
 func _enter() -> void:
-	if agent.cb.is_on_floor() == false:
+	if agent.cb.is_on_floor() == false or blackboard.get_var(_target_var) == null:
 		return
-	# TODO: Better way of getting the player.
-	var player = agent.get_parent().owner.get_node("Player")
-	blackboard.set_var(_target_var, player)
+
 	_original_speed   = _mover.move_speed
 	_mover.move_speed = move_speed
 	_target = blackboard.get_var(_target_var)

@@ -7,6 +7,9 @@ class_name Agent extends Node
 @export var mover: AIMover
 
 @onready var cb: CharacterBody3D = get_parent()
+@onready var awareness_radius: AwarenessRadius = Utils.get_node_of_type(
+	get_parent(), AwarenessRadius
+)
 
 ## Is the line of sight valid?
 func is_los_valid(target_char: CharacterBody3D) -> bool:

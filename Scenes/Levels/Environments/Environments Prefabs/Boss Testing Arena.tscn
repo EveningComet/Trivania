@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx606v6b6xdk6"]
+
+[ext_resource type="PackedScene" uid="uid://c1r0vhx3jq61h" path="res://Imported Assets/Models/Environments/Boss Testing Arena/Boss Testing Arena.glb" id="1_xkkt6"]
+
+[node name="Boss Testing Arena" instance=ExtResource("1_xkkt6")]
+
+[node name="StaticBody3D" parent="Architecture" index="0"]
+collision_mask = 3
+
+[node name="Statue" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999898, 0)
+
+[node name="StaticBody3D" parent="Statue" index="0"]
+collision_mask = 3

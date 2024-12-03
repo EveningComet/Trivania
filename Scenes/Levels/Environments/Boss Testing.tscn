@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0tyt7c5an4vu"]
+
+[ext_resource type="PackedScene" uid="uid://cd4ftvc7ptglf" path="res://Scenes/Player.tscn" id="1_chbbk"]
+[ext_resource type="PackedScene" uid="uid://dx606v6b6xdk6" path="res://Scenes/Levels/Environments/Environments Prefabs/Boss Testing Arena.tscn" id="1_ydoeh"]
+[ext_resource type="PackedScene" uid="uid://gr6555jm2u42" path="res://Scenes/Characters/Berserker Enemy.tscn" id="2_jrrbh"]
+[ext_resource type="PackedScene" uid="uid://dak2ueeagmnvw" path="res://Scenes/UI/Player HUD.tscn" id="3_d8bto"]
+[ext_resource type="PackedScene" uid="uid://d4eobggvwrs6w" path="res://Scenes/UI/Pause Menu.tscn" id="4_a6t72"]
+
+[sub_resource type="Environment" id="Environment_2k4gd"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5n352"]
+vertices = PackedVector3Array(17.75, 1.25, -47, 3.25, 1.25, -47, 3.25, 1.25, -40.75, -3.25, 1.25, -40.75, -3.25, 1.25, -47, -17.75, 1.25, -47, 2.75, 1.25, -40.25, 17.75, 1.25, -1, -2.75, 1.25, -40.25, -17.75, 1.25, -1, -2, 6, -46.5, -2, 6, -41.5, 2, 6, -41.5, 2, 6, -46.5, -1.25, 1.25, -45.25, -1.25, 1.25, -43, 1, 1.25, -43, 1, 1.25, -45.25)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(2, 0, 6), PackedInt32Array(6, 0, 7), PackedInt32Array(3, 8, 5), PackedInt32Array(5, 8, 9), PackedInt32Array(8, 6, 9), PackedInt32Array(9, 6, 7), PackedInt32Array(13, 12, 10), PackedInt32Array(10, 12, 11), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15)]
+agent_radius = 0.75
+
+[node name="Boss Testing" type="Node3D"]
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting"]
+environment = SubResource("Environment_2k4gd")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14, -21)
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 50.0
+spot_angle = 80.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -43)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_5n352")
+
+[node name="Boss Testing Arena" parent="NavigationRegion3D" instance=ExtResource("1_ydoeh")]
+
+[node name="Player" parent="." instance=ExtResource("1_chbbk")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 16, 3.20243, -2.06771)
+
+[node name="Berserker" parent="." instance=ExtResource("2_jrrbh")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 0.2899, 1.54573, -37.345)
+
+[node name="Player HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_d8bto")]
+player = NodePath("../Player")
+
+[node name="Pause Menu" type="CanvasLayer" parent="."]
+
+[node name="Pause Menu" parent="Pause Menu" instance=ExtResource("4_a6t72")]

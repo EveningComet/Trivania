@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://yt1xo0mx6xhp"]
+[gd_scene load_steps=13 format=3 uid="uid://yt1xo0mx6xhp"]
 
 [ext_resource type="Script" path="res://Scripts/Character/AI/Enemy.gd" id="1_pk500"]
 [ext_resource type="Script" path="res://Scripts/Character/Pusher.gd" id="3_hnh1r"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Character/AI/AIMover.gd" id="6_lop2g"]
 [ext_resource type="Script" path="res://Scripts/Character/AI/Agent.gd" id="7_x75m2"]
 [ext_resource type="Script" path="res://Scripts/Character/Damageable.gd" id="8_1t4xp"]
+[ext_resource type="Script" path="res://Scripts/Character/AI/AwarenessRadius.gd" id="8_iio5t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pdgwc"]
 
@@ -55,6 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 target_position = Vector3(0, 0, -100)
 
 [node name="Awareness Radius" type="Area3D" parent="."]
+script = ExtResource("8_iio5t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness Radius"]
 shape = SubResource("SphereShape3D_vb6li")

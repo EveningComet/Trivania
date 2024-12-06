@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2hulyh2rtsx2"]
+[gd_scene load_steps=12 format=3 uid="uid://b2hulyh2rtsx2"]
 
 [ext_resource type="PackedScene" uid="uid://beodbkk6rvcoh" path="res://Imported Assets/Models/Environments/Strange Manor Dungeon/Strange Manor Dungeon.glb" id="1_775wf"]
 [ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_qtjmv"]
+[ext_resource type="Script" path="res://Scripts/World/Area Event/AreaEventTrigger.gd" id="3_3jbkb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bhjtk"]
 render_priority = 0
@@ -136,6 +137,9 @@ shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.01
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_uijja"]
+size = Vector3(10, 5, 10)
+
 [node name="Strange Manor Dungeon" instance=ExtResource("1_775wf")]
 
 [node name="Window Frame" parent="." index="0"]
@@ -196,3 +200,11 @@ surface_material_override/0 = SubResource("ShaderMaterial_amwq2")
 [node name="StaticBody3D" parent="Boss Room" index="0"]
 collision_layer = 2
 collision_mask = 3
+
+[node name="AreaEventTrigger" type="Area3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -23)
+script = ExtResource("3_3jbkb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaEventTrigger" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+shape = SubResource("BoxShape3D_uijja")

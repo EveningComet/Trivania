@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://rq3y2cks7mho"]
+[gd_scene load_steps=26 format=3 uid="uid://rq3y2cks7mho"]
 
 [ext_resource type="PackedScene" uid="uid://bt4062arsscsd" path="res://Imported Assets/Models/Mcsteeg Hazmat/Hazmat.glb" id="1_xmm2i"]
 [ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_8rkhf"]
@@ -32,6 +32,9 @@ filter_enabled = true
 filters = ["", "Original/Skeleton3D:breast.L", "Original/Skeleton3D:breast.R", "Original/Skeleton3D:forearm.L", "Original/Skeleton3D:forearm.R", "Original/Skeleton3D:hand.L", "Original/Skeleton3D:hand.R", "Original/Skeleton3D:spine.003", "Original/Skeleton3D:spine.004", "Original/Skeleton3D:upper_arm.L", "Original/Skeleton3D:upper_arm.R"]
 fadein_time = 0.2
 fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yk87x"]
+animation = &"Die"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gmgpr"]
 animation = &"Falling"
@@ -92,15 +95,23 @@ xfade_time = 0.2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nrmly"]
 xfade_time = 0.2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6w7gn"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k5fys"]
+xfade_time = 0.2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3o1c2"]
+states/Die/node = SubResource("AnimationNodeAnimation_yk87x")
+states/Die/position = Vector2(572, 134)
 states/falling/node = SubResource("AnimationNodeAnimation_gmgpr")
 states/falling/position = Vector2(383.2, 57.2)
 states/movement/node = SubResource("AnimationNodeBlendSpace2D_5q18u")
 states/movement/position = Vector2(383.04, 146.8)
-transitions = ["Start", "movement", SubResource("AnimationNodeStateMachineTransition_peoi3"), "movement", "falling", SubResource("AnimationNodeStateMachineTransition_dleet"), "falling", "movement", SubResource("AnimationNodeStateMachineTransition_nrmly")]
+transitions = ["Start", "movement", SubResource("AnimationNodeStateMachineTransition_peoi3"), "movement", "falling", SubResource("AnimationNodeStateMachineTransition_dleet"), "falling", "movement", SubResource("AnimationNodeStateMachineTransition_nrmly"), "movement", "Die", SubResource("AnimationNodeStateMachineTransition_6w7gn"), "falling", "Die", SubResource("AnimationNodeStateMachineTransition_k5fys")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q5wtb"]
-graph_offset = Vector2(-325.639, 16.4566)
+graph_offset = Vector2(-549.469, 0)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_23ov3")
 nodes/Animation/position = Vector2(-272, 320)
 nodes/attack/node = SubResource("AnimationNodeOneShot_bkyx2")
@@ -112,32 +123,35 @@ node_connections = [&"attack", 0, &"locomotion", &"attack", 1, &"Animation", &"o
 [node name="Hazmat" instance=ExtResource("1_xmm2i")]
 
 [node name="Original" parent="." index="0"]
-transform = Transform3D(0.349022, -0.0711361, -1.1731, -0.000690314, 1.22373, -0.0744113, 1.17526, 0.0218445, 0.348339, 0.0023845, -0.140793, -0.0858049)
+transform = Transform3D(1.07921, -0.56005, 0.157163, -0.167225, 0.0185458, 1.21439, -0.557129, -1.09044, -0.0600651, 0.40112, 0.190032, 0.46065)
 
 [node name="Skeleton3D" parent="Original" index="0"]
-bones/1/rotation = Quaternion(-0.000814335, -0.0163091, -0.0121389, 0.999793)
-bones/2/rotation = Quaternion(-0.0720395, -0.0264507, -0.012422, 0.996974)
-bones/3/rotation = Quaternion(0.00724698, -0.0254187, -0.0143878, 0.999547)
-bones/4/rotation = Quaternion(0.119799, -0.156923, -0.0308098, 0.979834)
-bones/6/rotation = Quaternion(-0.271492, 0.717999, -0.178813, 0.615463)
-bones/7/rotation = Quaternion(0.716611, 0.00444747, 0.108812, 0.688919)
-bones/8/rotation = Quaternion(-0.0900971, -0.0539116, 0.0774722, 0.99145)
-bones/10/rotation = Quaternion(-0.215756, -0.809645, 0.271186, 0.47369)
-bones/11/rotation = Quaternion(0.613613, -0.00864033, -0.0759012, 0.785903)
-bones/12/rotation = Quaternion(-0.0541608, 0.131438, -0.0600277, 0.988022)
-bones/13/rotation = Quaternion(-3.0423e-08, 0.696936, 0.717133, -3.14232e-08)
-bones/14/rotation = Quaternion(-3.0423e-08, 0.696936, 0.717133, -3.14232e-08)
-bones/17/rotation = Quaternion(0.912367, 0.21194, -0.143163, 0.319643)
-bones/18/rotation = Quaternion(0.391805, -0.0633968, 0.0443764, 0.916788)
-bones/19/rotation = Quaternion(-0.57952, -0.0675806, 0.136536, 0.800592)
-bones/20/rotation = Quaternion(0.0122665, 0.96049, -0.278039, -0.00200241)
-bones/22/rotation = Quaternion(0.907504, -0.0624672, 0.0954572, 0.404255)
-bones/23/rotation = Quaternion(0.470056, -0.0632847, 0.0655002, 0.877925)
-bones/24/rotation = Quaternion(-0.646545, -0.0416601, -0.111748, 0.753496)
-bones/25/rotation = Quaternion(-0.00983768, 0.960106, -0.279458, 0.00163029)
+bones/1/rotation = Quaternion(-0.0645982, -0.0087866, -0.0266996, 0.997515)
+bones/2/rotation = Quaternion(-0.0353033, -0.0184033, -0.0118559, 0.999137)
+bones/3/rotation = Quaternion(0.0444497, -0.0137682, -0.0143818, 0.998813)
+bones/4/rotation = Quaternion(-0.0498837, 0.0121148, -0.00802612, 0.998649)
+bones/6/rotation = Quaternion(-0.00107981, 0.613281, -0.257417, 0.746741)
+bones/7/rotation = Quaternion(0.0560088, 0.0353654, -0.0847158, 0.994201)
+bones/8/rotation = Quaternion(0.00759848, -0.687463, 0.157348, 0.708928)
+bones/10/rotation = Quaternion(-0.155999, -0.606972, 0.585111, 0.51468)
+bones/11/rotation = Quaternion(0.494231, -0.027243, 0.496869, 0.712821)
+bones/12/rotation = Quaternion(-0.13183, -0.346256, 0.202565, 0.906474)
+bones/13/rotation = Quaternion(-2.86959e-08, 0.696936, 0.717133, -3.21896e-08)
+bones/14/rotation = Quaternion(-2.86959e-08, 0.696936, 0.717133, -3.21896e-08)
+bones/17/rotation = Quaternion(0.806166, 0.143534, -0.491017, 0.297315)
+bones/18/rotation = Quaternion(0.288748, -0.0312772, -0.019873, 0.956688)
+bones/19/rotation = Quaternion(-0.419682, -0.0523825, 0.113658, 0.899002)
+bones/20/rotation = Quaternion(6.26532e-07, 0.961249, -0.275683, 7.25834e-07)
+bones/22/rotation = Quaternion(0.854712, -0.267561, -0.195261, 0.39969)
+bones/23/rotation = Quaternion(0.881871, -0.0998895, -0.0811726, 0.453581)
+bones/24/rotation = Quaternion(-0.392829, 0.0943181, -0.219994, 0.887915)
+bones/25/rotation = Quaternion(-2.02149e-07, 0.961249, -0.275683, -7.10698e-07)
 
 [node name="Male_4" parent="Original/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_35cbn")
+
+[node name="AnimationPlayer" parent="." index="1"]
+playback_default_blend_time = 0.2
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
 tree_root = SubResource("AnimationNodeBlendTree_q5wtb")

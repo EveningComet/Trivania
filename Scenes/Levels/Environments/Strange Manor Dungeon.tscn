@@ -1,47 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2hulyh2rtsx2"]
+[gd_scene load_steps=9 format=3 uid="uid://b2hulyh2rtsx2"]
 
 [ext_resource type="PackedScene" uid="uid://beodbkk6rvcoh" path="res://Imported Assets/Models/Environments/Strange Manor Dungeon/Strange Manor Dungeon.glb" id="1_775wf"]
 [ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_qtjmv"]
 [ext_resource type="Script" path="res://Scripts/World/Area Event/AreaEventTrigger.gd" id="3_3jbkb"]
 [ext_resource type="Script" path="res://Scripts/World/Area Event/ChangeAreaObject.gd" id="4_u1smh"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bhjtk"]
-render_priority = 0
-shader = ExtResource("2_qtjmv")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = true
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = true
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.01
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tspub"]
-render_priority = 0
-shader = ExtResource("2_qtjmv")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = true
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = true
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.01
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vd30l"]
 render_priority = 0
@@ -62,45 +24,7 @@ shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_huflj"]
-render_priority = 0
-shader = ExtResource("2_qtjmv")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = true
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = true
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.01
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wsitw"]
-render_priority = 0
-shader = ExtResource("2_qtjmv")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = true
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = true
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.01
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhgc0"]
 render_priority = 0
 shader = ExtResource("2_qtjmv")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -143,74 +67,65 @@ size = Vector3(10, 5, 10)
 
 [node name="Strange Manor Dungeon" instance=ExtResource("1_775wf")]
 
-[node name="Window Frame" parent="." index="0"]
-visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_bhjtk")
-
-[node name="StaticBody3D" parent="Window Frame" index="0"]
-collision_layer = 2
-collision_mask = 3
-
-[node name="Entrance" parent="." index="1"]
-surface_material_override/0 = SubResource("ShaderMaterial_tspub")
-
-[node name="StaticBody3D" parent="Entrance" index="0"]
-collision_layer = 2
-collision_mask = 3
-
-[node name="Wall Bridge Thingies" parent="." index="2"]
+[node name="Wall Bridge Thingies" parent="." index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_vd30l")
 
 [node name="StaticBody3D" parent="Wall Bridge Thingies" index="0"]
 collision_layer = 2
 collision_mask = 3
 
-[node name="Gap Bridger" parent="." index="3"]
-surface_material_override/0 = SubResource("ShaderMaterial_huflj")
-
-[node name="StaticBody3D" parent="Gap Bridger" index="0"]
-collision_layer = 2
-collision_mask = 3
-
-[node name="Walkway" parent="." index="4"]
+[node name="Walkway" parent="." index="1"]
 surface_material_override/0 = SubResource("ShaderMaterial_wsitw")
 
 [node name="barrier" parent="Walkway" index="0"]
 collision_mask = 3
 
 [node name="StaticBody3D" parent="Walkway" index="1"]
-collision_mask = 3
-
-[node name="Gap Bridger 2" parent="." index="5"]
-surface_material_override/0 = SubResource("ShaderMaterial_rhgc0")
-
-[node name="StaticBody3D" parent="Gap Bridger 2" index="0"]
 collision_layer = 2
 collision_mask = 3
 
-[node name="Big Room" parent="." index="6"]
+[node name="Big Room" parent="." index="2"]
 surface_material_override/0 = SubResource("ShaderMaterial_amwq2")
 
 [node name="StaticBody3D" parent="Big Room" index="0"]
 collision_layer = 2
 collision_mask = 3
 
-[node name="Boss Room" parent="." index="7"]
+[node name="Boss Room" parent="." index="3"]
 surface_material_override/0 = SubResource("ShaderMaterial_amwq2")
 
 [node name="StaticBody3D" parent="Boss Room" index="0"]
 collision_layer = 2
 collision_mask = 3
 
-[node name="AreaEventTrigger" type="Area3D" parent="." index="8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -23)
+[node name="Window Frame" parent="." index="4"]
+visible = false
+
+[node name="StaticBody3D" parent="Window Frame" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Gap Frame 1" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Central Room/Central Room Floor" index="0"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="StaticBody3D" parent="Central Room" index="1"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="AreaEventTrigger" type="Area3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.9987, 0, -67.5011)
 script = ExtResource("3_3jbkb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AreaEventTrigger" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
 shape = SubResource("BoxShape3D_uijja")
 
-[node name="ChangeAreaObject" type="Node" parent="." index="9" node_paths=PackedStringArray("object_to_change")]
+[node name="ChangeAreaObject" type="Node" parent="." index="8" node_paths=PackedStringArray("object_to_change")]
 script = ExtResource("4_u1smh")
 object_to_change = NodePath("../Walkway")
 
